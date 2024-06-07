@@ -63,7 +63,7 @@ public sealed class ChunkDecals : ChunkComponent
 	{
 		// Add pending decals
 		
-		if (decalStyleData == null || texture == null) {
+		if (!DecalSystem.EnableDecals || decalStyleData == null || texture == null) {
 			return;
 		}
 
@@ -108,7 +108,7 @@ public sealed class ChunkDecals : ChunkComponent
 	{
 		// Render the RT in the world
 
-		if (!chunk.Components.TryGet(out ChunkLighting? lighting)) {
+		if (!DecalSystem.EnableDecals || !chunk.Components.TryGet(out ChunkLighting? lighting)) {
 			return;
 		}
 

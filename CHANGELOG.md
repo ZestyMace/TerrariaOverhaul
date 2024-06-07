@@ -46,6 +46,7 @@
 ### Fixes
 - Fixed ambience tracks being broken again. If only unit tests were to be a thing...
 - Fixed a rare cross-mod issue where Overhaul's falling trees would cause issues by using outdated "spawn sources" in item/loot instantiation.
+- Fixed the `EnableDecals` option preventing only addition of new decals but not rendering of existing ones.
 
 # 5.0 BETA 14
 
