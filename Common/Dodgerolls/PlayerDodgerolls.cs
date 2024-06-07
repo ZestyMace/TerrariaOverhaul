@@ -28,6 +28,7 @@ public struct DodgerollStats
 	// Timings
 	public uint CooldownLength = 90;
 	public uint DodgerollLength = 22;
+	public uint MovementActionDenialLength = 22 / 3 * 2;
 	public uint BufferingLength = 20;
 	public uint MinItemUseCommitment = 20;
 	public uint CounterBuffLength = 90;
@@ -288,8 +289,10 @@ public sealed class PlayerDodgerolls : ModPlayer
 		DodgeDirectionVisual = (Direction1D)Player.direction;
 		DodgeDirection = WantedDirection != 0 ? WantedDirection : (Direction1D)Player.direction;
 
-		// Handle cooldowns
+		// Prevent other actions
+		Player.GetModPlayer<PlayerClimbing>().ClimbCooldown.Set(Stats.MovementActionDenialLength);
 
+		// Handle cooldowns
 		CurrentCharges = Math.Max(0, CurrentCharges - 1);
 
 		// Activate tiredness, which doesn't stop the next dodgeroll on its own
@@ -384,9 +387,6 @@ public sealed class PlayerDodgerolls : ModPlayer
 
 		// Progress the dodgeroll
 		DodgeTime++;
-
-		// Prevent other actions
-		Player.GetModPlayer<PlayerClimbing>().ClimbCooldown.Set(1);
 
 		if (DodgeTime >= Stats.DodgerollLength) {
 			IsDodging = false;
