@@ -35,6 +35,7 @@
 ### Changes
 - Melee weapon swing velocity and miniguns' velocity recoil are now both scaled by the player's current gravity intensity. This resolves [#204](https://github.com/Mirsario/TerrariaOverhaul/issues/204) (Featherfall weapon combos allow infinite ascension).
 - Climbing can now be activated past the second third of any dodgeroll animation, resulting in more fluid movement combos.
+- The decal system received some sublte improvements again. Some decals will now be randomly rotated. Involved math has been reworked and heavily simplified.
 - For English, changed `Expert`'s difficulty level rename from `Bone Me Plenty` to `Turn Me Undead`. For obvious reasons.
 - Removed all unused and functionless legacy content from compilation: `Charcoal`, `Calendars`, `Gramophones`, `Stone Axes`, `Stone Pickaxes`, `Ash Clots`, `Walking Ashes`. These bits will be reintroduced when required.
 ### Configuration
@@ -46,6 +47,7 @@
 - A few more GUI elements were made localizable.
 ### Fixes
 - Fixed ambience tracks being broken again. If only unit tests were to be a thing...
+- Fixed decal applying code sometimes skipping strips between decal chunk borders due to overcomplicated rectangle shenanigans.
 - Fixed a rare cross-mod issue where Overhaul's falling trees would cause issues by using outdated "spawn sources" in item/loot instantiation.
 - Fixed the `EnableDecals` option preventing only addition of new decals but not rendering of existing ones.
 

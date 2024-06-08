@@ -7,6 +7,7 @@ using Terraria.GameContent;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.Decals;
 using TerrariaOverhaul.Common.Tags;
+using TerrariaOverhaul.Core.Debugging;
 using TerrariaOverhaul.Utilities;
 
 namespace TerrariaOverhaul.Common.ProjectileEffects;
@@ -107,14 +108,6 @@ public sealed class ProjectileDecals : GlobalProjectile
 			texture = TextureAssets.MagicPixel.Value;
 		}
 
-		var rect = new Rectangle((int)position.X, (int)position.Y, 0, 0);
-
-		if (data.Size is Vector2Int size) {
-			rect.Inflate(size.X / 2, size.Y / 2);
-		} else {
-			rect.Inflate(maxSize.X / 2, maxSize.Y / 2);
-		}
-
 		var color = data.Color;
 
 		if (color.A != 255) {
@@ -127,7 +120,9 @@ public sealed class ProjectileDecals : GlobalProjectile
 
 		DecalSystem.AddDecals(data.DecalStyle, new DecalInfo {
 			Texture = texture,
-			DstRect = rect,
+			Position = position,
+			Size = data.Size is Vector2Int size ? size : maxSize,
+			Rotation = Main.rand.NextFloat(MathHelper.TwoPi),
 			Color = color,
 			IfChunkExists = data.IfChunkExists,
 		});

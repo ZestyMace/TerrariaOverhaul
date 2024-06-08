@@ -69,7 +69,7 @@ public sealed class ChunkDecals : ChunkComponent
 
 		bool renderTargetSet = false;
 		var sb = Main.spriteBatch;
-		var origin = Vector2.One * 0.5f;
+		var chunkPosition = chunk.WorldRectangle.Position;
 
 		for (int i = 0; i < decalStyleData.Length; i++) {
 			ref var styleData = ref decalStyleData[i];
@@ -90,8 +90,15 @@ public sealed class ChunkDecals : ChunkComponent
 
 			for (int j = 0; j < styleData.NumDecalsToDraw; j++) {
 				DecalInfo info = styleData.DecalsToDraw[j];
+				var halfSize = (Vector2Int)(info.SrcRect?.Size() ?? info.Texture.Size()) * 0.5f;
+				var halfScale = info.Scale * 0.5f;
+				var origin = halfSize;
+				var position = new Vector2(
+					MathF.Floor((info.Position.X - chunkPosition.X) * 0.5f) + (halfSize.X % 2f != 0f ? 0.5f : 0f),
+					MathF.Floor((info.Position.Y - chunkPosition.Y) * 0.5f) + (halfSize.Y % 2f != 0f ? 0.5f : 0f)
+				);
 
-				sb.Draw(info.Texture, info.DstRect, info.SrcRect, info.Color, info.Rotation, origin, 0, 0f);
+				sb.Draw(info.Texture, position, info.SrcRect, info.Color, info.Rotation, origin, halfScale, 0, 0f);
 			}
 
 			sb.End();
