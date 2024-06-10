@@ -28,7 +28,7 @@ public sealed class NpcBodyRotation : GlobalNPC
 
 	public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 	{
-		if (!EnableEnemyTiltingEffects) {
+		if (!EnableEnemyTiltingEffects || npc.IsABestiaryIconDummy) {
 			usedRotationOffset = 0f;
 			return true;
 		}

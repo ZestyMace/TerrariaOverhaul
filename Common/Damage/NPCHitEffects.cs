@@ -28,12 +28,12 @@ public sealed class NPCHitEffects : GlobalNPC
 	// Drawing
 	public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 	{
-		ulong delta = TimeSystem.UpdateCount - lastHitTime;
-
 		const int EffectLength = 5;
 
-		if (delta <= EffectLength) {
-			float intensity = 1f - delta / (float)EffectLength;
+		ulong delta = TimeSystem.UpdateCount - lastHitTime;
+
+		if (lastHitTime > 0 && delta <= EffectLength) {
+			float intensity = 1f - (delta / (float)EffectLength);
 			float maxDimension = Math.Max(1f, Math.Max(npc.width, npc.height) * npc.scale);
 			float maxScaleDown = maxDimension / (maxDimension + 4f);
 
