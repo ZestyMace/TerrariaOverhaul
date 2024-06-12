@@ -84,15 +84,23 @@ public class GoreSystem : ModSystem
 
 	private static void GoreUpdate(On_Gore.orig_Update orig, Gore gore)
 	{
+		bool wasActive = gore.active;
+
 		orig(gore);
 
-		if (!gore.active || gore.type == 0) {
+		// OverhaulGore.PostUpdate() is still called on gores that just became inactive.
+		if (gore.type <= 0 || !wasActive) {
 			return;
 		}
 
 		if (gore is not OverhaulGore goreExt) {
+			if (!gore.active) {
+				return;
+			}
+
 			goreExt = ConvertGore(gore, () => Array.IndexOf(Main.gore, gore)); //TODO: Avoid this IndexOf call?
 		}
+
 		goreExt.PostUpdate();
 	}
 
