@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.Camera;
 using TerrariaOverhaul.Core.AudioEffects;
@@ -11,11 +14,22 @@ namespace TerrariaOverhaul.Common.AudioEffects;
 
 public sealed class TileSoundOcclusion : ModSystem
 {
+	private static readonly HashSet<SoundStyle> excludedSoundStyles = [];
+
 	public static float OcclusionFactor { get; private set; }
 
 	public override void Load()
 	{
 		AudioEffectsSystem.OnSoundUpdate += ApplyOcclusionToSounds;
+	}
+
+	public static void SetEnabledForSoundStyle(in SoundStyle soundStyle, bool enabled)
+	{
+		if (enabled) {
+			excludedSoundStyles.Remove(soundStyle);
+		} else {
+			excludedSoundStyles.Add(soundStyle);
+		}
 	}
 
 	private static void ApplyOcclusionToSounds(Span<AudioEffectsSystem.SoundData> sounds)

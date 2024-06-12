@@ -238,6 +238,18 @@ BloodAndGore: {
 	}
 }
 
+Bosses: {
+	EnableDestroyerEffects: {
+		DisplayName: "Enable Destroyer Effects Rework"
+		Description: "When enabled, The Destroyer will receive new audiovisual effects."
+	}
+
+	EnableDestroyerMakeover: {
+		DisplayName: "Enable Destroyer Makeover"
+		Description: "When enabled, The Destroyer will receive a new massive spritework. Affects gameplay."
+	}
+}
+
 Camera: {
 	DisplayName: "Camera"
 	Description: "Overhaul implements many camera features that highly improve how the game presents itself."

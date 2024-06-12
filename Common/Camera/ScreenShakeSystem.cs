@@ -21,8 +21,8 @@ public sealed class ScreenShakeSystem : ModSystem
 		public Vector2? Position;
 		public ScreenShake Style;
 
-		public float TimeLeft => MathF.Max(0f, EndTime - TimeSystem.RenderTime);
-		public float Progress => Style.LengthInSeconds > 0f ? MathHelper.Clamp((TimeSystem.RenderTime - StartTime) / Style.LengthInSeconds, 0f, 1f) : 1f;
+		public readonly float TimeLeft => MathF.Max(0f, EndTime - TimeSystem.RenderTime);
+		public readonly float Progress => Style.LengthInSeconds > 0f ? MathHelper.Clamp((TimeSystem.RenderTime - StartTime) / Style.LengthInSeconds, 0f, 1f) : 1f;
 	}
 
 	public static readonly RangeConfigEntry<float> ScreenShakeStrength = new(ConfigSide.ClientOnly, 1f, (0f, 1f), "Camera");
