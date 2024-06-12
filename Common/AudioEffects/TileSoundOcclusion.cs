@@ -37,8 +37,12 @@ public sealed class TileSoundOcclusion : ModSystem
 		for (int i = 0; i < sounds.Length; i++) {
 			ref var data = ref sounds[i];
 
-			if (data.StartPosition is Vector2 startPosition) {
-				float occlusion = CalculateSoundOcclusion(startPosition.ToTileCoordinates());
+			if (data.TrackedSound?.TryGetTarget(out var activeSound) == true && activeSound.Position is Vector2 position) {
+				if (excludedSoundStyles.Contains(data.SoundStyle)) {
+					continue;
+				}
+
+				float occlusion = CalculateSoundOcclusion(position.ToTileCoordinates());
 
 				data.Parameters.LowPassFiltering += occlusion;
 			}
