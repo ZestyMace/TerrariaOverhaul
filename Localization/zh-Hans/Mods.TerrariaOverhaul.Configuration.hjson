@@ -230,6 +230,26 @@ BloodAndGore: {
 	}
 }
 
+Bosses: {
+	// DisplayName: "Bosses"
+	// Description: "Overhaul implements many audiovisual reworks to make boss battles more cinematic and intimidating."
+
+	EnableDestroyerEffects: {
+		// DisplayName: "Enable Destroyer Effects"
+		// Description: "When enabled, The Destroyer boss will receive new audiovisual effects."
+	}
+
+	EnableDestroyerMakeover: {
+		// DisplayName: "Enable Destroyer Makeover"
+		// Description: "When enabled, The Destroyer boss will receive a new massive spritework. Affects gameplay."
+	}
+
+	EnableEaterOfWorldsEffects: {
+		// DisplayName: "Enable Eater Of Worlds Effects"
+		// Description: "When enabled, The Eater of Worlds boss will receive new audiovisual effects."
+	}
+}
+
 Camera: {
 	DisplayName: "镜头"
 	Description: "Overhaul包含许多相机优化功能，极大地改进了游戏的呈现方式。"
@@ -616,6 +636,11 @@ Visuals: {
 	EnablePlayerTilting: {
 		DisplayName: "玩家身体倾斜"
 		Description: "玩家是否会基于速度，向运动方向略微倾斜。使其更有活力。"
+	}
+
+	EnableEnemyFlinchingEffects: {
+		// DisplayName: "Enable Enemy Flinching Effects"
+		// Description: "Toggles enemy sprites getting slightly shaken when hurt."
 	}
 
 	EnableEnemyTiltingEffects: {

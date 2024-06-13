@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
+using TerrariaOverhaul.Core.Configuration;
 using TerrariaOverhaul.Core.Time;
 
 namespace TerrariaOverhaul.Common.Damage;
@@ -12,6 +13,8 @@ namespace TerrariaOverhaul.Common.Damage;
 [Autoload(Side = ModSide.Client)]
 public sealed class NPCHitEffects : GlobalNPC
 {
+	public static readonly ConfigEntry<bool> EnableEnemyFlinchingEffects = new(ConfigSide.ClientOnly, true, "Visuals", "Enemies");
+
 	private ulong lastHitTime;
 	private float? usedDrawScaleMultiplier;
 	private float? usedDrawRotationOffset;
@@ -28,6 +31,10 @@ public sealed class NPCHitEffects : GlobalNPC
 	// Drawing
 	public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
 	{
+		if (!EnableEnemyFlinchingEffects) {
+			return true;
+		}
+
 		const int EffectLength = 5;
 
 		ulong delta = TimeSystem.UpdateCount - lastHitTime;

@@ -40,11 +40,14 @@
 - Melee weapon swing velocity and miniguns' velocity recoil are now both scaled by the player's current gravity intensity. This resolves [#204](https://github.com/Mirsario/TerrariaOverhaul/issues/204) (Featherfall weapon combos allow infinite ascension).
 - Climbing can now be activated past the second third of any dodgeroll animation, resulting in more fluid movement combos.
 - The decal system received some subtle improvements again. Some decals will now be randomly rotated. Involved math has been reworked and heavily simplified.
-- For English, changed `Expert`'s difficulty level rename from `Bone Me Plenty` to `Turn Me Undead`. For obvious reasons.
+- For English, changed `Expert`'s difficulty level rename to `Turn Me Undead`. For obvious reasons.
 - Removed all unused and functionless legacy content from compilation: `Charcoal`, `Calendars`, `Gramophones`, `Stone Axes`, `Stone Pickaxes`, `Ash Clots`, `Walking Ashes`. These bits will be reintroduced when required.
 ### Configuration
-- Added the following new options:
+- Existing features received the following new options:
   **Guns:** `EnableMinigunDynamicFirerate`, `EnableStarCannonDynamicFirerate`.
+  **Visuals:** `EnableEnemyFlinchingEffects`.
+- New features were introduced with the following options:
+  **Bosses:** `EnableDestroyerEffects`, `EnableDestroyerMakeover`, `EnableEaterOfWorldsEffects`.
 ### Localization
 - Chinese (`59.1%` -> `100%`) - PRs [#232](https://github.com/Mirsario/TerrariaOverhaul/pull/232) & [#233](https://github.com/Mirsario/TerrariaOverhaul/pull/233) by [**xiaoyvyv**](https://github.com/xiaoyvyv) & [**Cyrillya**](https://github.com/Cyrillya).
 - Fixed Overhaul's main menu buttons sometimes being incorrectly shown in English when a different language is selected.

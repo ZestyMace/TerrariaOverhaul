@@ -239,14 +239,22 @@ BloodAndGore: {
 }
 
 Bosses: {
+	// DisplayName: "Bosses"
+	// Description: "Overhaul implements many audiovisual reworks to make boss battles more cinematic and intimidating."
+
 	EnableDestroyerEffects: {
-		// DisplayName: "Enable Destroyer Effects Rework"
-		// Description: "When enabled, The Destroyer will receive new audiovisual effects."
+		// DisplayName: "Enable Destroyer Effects"
+		// Description: "When enabled, The Destroyer boss will receive new audiovisual effects."
 	}
 
 	EnableDestroyerMakeover: {
 		// DisplayName: "Enable Destroyer Makeover"
-		// Description: "When enabled, The Destroyer will receive a new massive spritework. Affects gameplay."
+		// Description: "When enabled, The Destroyer boss will receive a new massive spritework. Affects gameplay."
+	}
+
+	EnableEaterOfWorldsEffects: {
+		// DisplayName: "Enable Eater Of Worlds Effects"
+		// Description: "When enabled, The Eater of Worlds boss will receive new audiovisual effects."
 	}
 }
 
@@ -634,9 +642,14 @@ Visuals: {
 		Description: "Faz com que o personagem do jogador fique ligeiramente inclinado baseado em sua velocidade. Isso faz com que eles pareçam muito mais vivos."
 	}
 
+	EnableEnemyFlinchingEffects: {
+		// DisplayName: "Enable Enemy Flinching Effects"
+		// Description: "Toggles enemy sprites getting slightly shaken when hurt."
+	}
+
 	EnableEnemyTiltingEffects: {
 		// DisplayName: "Enable Enemy Tilting Effects"
-		// Description: "Toggles enemy sprites being slightly tilted depending on their velocity"
+		// Description: "Toggles enemy sprites being slightly tilted depending on their velocity."
 	}
 
 	EnableVisualWeaponRecoil: {
