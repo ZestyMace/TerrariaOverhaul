@@ -118,52 +118,6 @@ public sealed class DestroyerRework : GlobalNPC
 		}
 	}
 
-	// Fixes the large sprite darkening as it goes in and out of the ground.
-	public override Color? GetAlpha(NPC npc, Color drawColor)
-	{
-		return null;
-
-		var rect = npc.getRect();
-		var center = npc.Center;
-
-		Span<Point> points = [
-			center.ToTileCoordinates(),
-			rect.TopLeft().ToTileCoordinates(),
-			rect.TopRight().ToTileCoordinates(),
-			rect.BottomLeft().ToTileCoordinates(),
-			rect.BottomRight().ToTileCoordinates(),
-		];
-
-		int r = 0;
-		int g = 0;
-		int b = 0;
-
-		for (int i = 0; i < points.Length; i++) {
-			var point = points[i];
-			var color = Lighting.GetColor(point.X, point.Y);
-
-			r += color.R;
-			g += color.G;
-			b += color.B;
-
-			//int sum = color.R + color.G + color.B;
-			//
-			//if (sum == 0 && i == 0) {
-			//	return default;
-			//} else if (sum > maxSum) {
-			//	maxSum = sum;
-			//	maxColor = color;
-			//}
-		}
-
-		return new Color(
-			r / points.Length,
-			g / points.Length,
-			b / points.Length,
-			255	
-		);
-	}
-
 	private static bool? UpdateSpriteSwap(Mod mod, bool unloading)
 	{
 		if (Main.dedServ) {
