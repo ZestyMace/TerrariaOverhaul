@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -97,5 +98,11 @@ public sealed class EaterOfWorldsRework : GlobalNPC
 				},
 			};
 		}
+	}
+
+	// Nobody wants to see a second worm made out of healthbars.
+	public override bool? DrawHealthBar(NPC npc, byte hbPosition, ref float scale, ref Vector2 position)
+	{
+		return false;
 	}
 }
