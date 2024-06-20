@@ -54,6 +54,7 @@
 - A few more GUI elements were made localizable.
 ### Fixes
 - Fixed ambience tracks being broken again. If only unit tests were to be a thing...
+- Fixed the crosshair sometimes appearing together with the base cursor, when hovering over GUI elements.
 - Fixed tile-based sound occlusion not being updated whenever sounds happen to move.
 - Fixed decal applying code sometimes skipping strips between decal chunk borders due to overcomplicated rectangle shenanigans.
 - Fixed a rare cross-mod issue where Overhaul's falling trees would cause issues by using outdated "spawn sources" in item/loot instantiation.

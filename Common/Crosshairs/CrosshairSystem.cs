@@ -37,6 +37,8 @@ public sealed class CrosshairSystem : ModSystem
 	public static readonly ConfigEntry<bool> EnableCrosshair = new(ConfigSide.ClientOnly, true, "Interface");
 	public static readonly ConfigEntry<bool> EnableCrosshairAnimations = new(ConfigSide.ClientOnly, true, "Interface");
 
+	private static bool lastMouseText;
+	private static bool lastMouseInterface;
 	// Base
 	private static SpriteFrame crosshairBaseFrame = new(4, 2);
 	private static Asset<Texture2D>? crosshairTexture;
@@ -57,9 +59,15 @@ public sealed class CrosshairSystem : ModSystem
 		crosshairTexture = null;
 	}
 
+	public override void UpdateUI(GameTime gameTime)
+	{
+		lastMouseText = Main.mouseText;
+		lastMouseInterface = Main.LocalPlayer.mouseInterface;
+	}
+
 	public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
 	{
-		if (Main.LocalPlayer.mouseInterface || layers.Count == 0) {
+		if (lastMouseInterface || lastMouseText || layers.Count == 0) {
 			return;
 		}
 
