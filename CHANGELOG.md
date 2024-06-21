@@ -48,6 +48,7 @@
   **Visuals:** `EnableEnemyFlinchingEffects`.
 - New features were introduced with the following options:
   **Bosses:** `EnableDestroyerEffects`, `EnableDestroyerMakeover`, `EnableEaterOfWorldsEffects`.
+- The `CameraSmoothness` option's effects will now closer match players' percentage scaling expectations.
 ### Localization
 - Chinese (`59.1%` -> `100%`) - PRs [#232](https://github.com/Mirsario/TerrariaOverhaul/pull/232) & [#233](https://github.com/Mirsario/TerrariaOverhaul/pull/233) by [**xiaoyvyv**](https://github.com/xiaoyvyv) & [**Cyrillya**](https://github.com/Cyrillya).
 - Fixed Overhaul's main menu buttons sometimes being incorrectly shown in English when a different language is selected.

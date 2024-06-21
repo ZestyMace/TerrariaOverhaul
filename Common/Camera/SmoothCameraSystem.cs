@@ -38,11 +38,12 @@ public sealed class SmoothCameraSystem : ModSystem
 #endif
 
 			if (CameraSmoothness > 0f && differenceLength < maxDifferenceLength) {
-				const float BaseSmoothness = 0.01f;
+				const float BaseSmoothness = 0.1f;
 
+				float smoothness = BaseSmoothness * CameraSmoothness;
 				float deltaTime = CameraSystem.LimitCameraUpdateRate ? TimeSystem.LogicDeltaTime : TimeSystem.RenderDeltaTime;
 
-				Main.screenPosition = MathUtils.Damp(oldPosition.Value, newPosition, CameraSmoothness * BaseSmoothness, deltaTime);
+				Main.screenPosition = MathUtils.Damp(oldPosition.Value, newPosition, smoothness * smoothness, deltaTime);
 			}
 
 			oldPosition = Main.screenPosition;
