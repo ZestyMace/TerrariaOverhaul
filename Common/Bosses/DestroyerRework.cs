@@ -70,7 +70,7 @@ public sealed class DestroyerRework : GlobalNPC
 				},
 				// Random
 				RandomSoundCooldown = (45, 60 * 10),
-				RandomSound = new SoundStyle($"{nameof(TerrariaOverhaul)}/Assets/Sounds/Bosses/RoboticScreamA") {
+				RandomSound = new SoundStyle($"{nameof(TerrariaOverhaul)}/Assets/Sounds/Bosses/RoboticScream1") {
 					Volume = 0.85f,
 					PitchVariance = 0.25f,
 					Identifier = "TheDestroyer_Voice",
