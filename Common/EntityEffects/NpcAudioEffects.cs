@@ -6,7 +6,6 @@ using Terraria.Audio;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.Camera;
 using TerrariaOverhaul.Utilities;
-using static TerrariaOverhaul.Common.EntityEffects.NpcWormEffects;
 
 namespace TerrariaOverhaul.Common.EntityEffects;
 
@@ -25,7 +24,7 @@ public sealed class NpcAudioEffects : GlobalNPC
 		public (int Min, int Max) RandomSoundCooldown;
 		// Movement Sound
 		public SoundStyle MovementSound;
-		public (float SpeedMultiplier, float MinPitch, float MaxPitch) MovementSoundVelocityPitching = (1f / 7f, -0.80f, 0.80f);
+		public (float MinSpeed, float MaxSpeed, float MinPitch, float MaxPitch) MovementSoundVelocityPitching = (2.5f, 10f, -0.50f, 0.50f);
 
 		internal ulong randomSoundCooldownEndTime;
 		internal ulong approachSoundCooldownEndTime;
@@ -118,11 +117,11 @@ public sealed class NpcAudioEffects : GlobalNPC
 		}
 
 		if (nearestSegment.TryGetGlobalNPC(out NpcAudioEffects segmentEffects)) {
-			var pitching = effects.Data.MovementSoundVelocityPitching;
+			var (minSpeed, maxSpeed, minPitch, maxPitch) = effects.Data.MovementSoundVelocityPitching;
 			float segmentSpeed = (nearestSegment.position - segmentEffects.OldPosition).Length();
 
 			sound.Position = nearestSegment.Center;
-			sound.Pitch = MathHelper.Clamp(pitching.MinPitch + segmentSpeed * pitching.SpeedMultiplier, pitching.MinPitch, pitching.MaxPitch);
+			sound.Pitch = MathHelper.Lerp(minPitch, maxPitch, MathUtils.Clamp01((segmentSpeed - minSpeed) / (maxSpeed - minSpeed)));
 		}
 
 		return true;

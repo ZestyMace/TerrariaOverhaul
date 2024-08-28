@@ -65,6 +65,7 @@ public sealed class EaterOfWorldsRework : GlobalNPC
 					UniqueId = "EaterOfWorlds_Approach",
 				},
 				// Movement
+				MovementSoundVelocityPitching = (2.5f, 10f, -0.50f, 0.50f),
 				MovementSound = new SoundStyle($"{nameof(TerrariaOverhaul)}/Assets/Sounds/Bosses/FleshLoopSoft") {
 					Volume = 0.525f,
 					IsLooped = true,
