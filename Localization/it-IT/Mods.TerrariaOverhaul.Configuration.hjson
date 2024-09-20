@@ -298,6 +298,11 @@ Enemies: {
 		DisplayName: "Attiva assalti nemici"
 		Description: "Quando attivo, i nemici che camminano potrebbero saltarti addosso quando ti si avvicinano."
 	}
+
+	EnableNormalEnemyEffects: {
+		// DisplayName: "Enable Normal Enemy Effects"
+		// Description: ""
+	}
 }
 
 Guns: {

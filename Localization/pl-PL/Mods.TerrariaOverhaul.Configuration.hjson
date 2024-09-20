@@ -294,6 +294,11 @@ Enemies: {
 		DisplayName: "Włącz Rzucanie się Przeciwników"
 		Description: "Gdy włączone, przeciwnicy mogą się na ciebie rzucić gdy się zbliżysz."
 	}
+
+	EnableNormalEnemyEffects: {
+		// DisplayName: "Enable Normal Enemy Effects"
+		// Description: ""
+	}
 }
 
 Guns: {

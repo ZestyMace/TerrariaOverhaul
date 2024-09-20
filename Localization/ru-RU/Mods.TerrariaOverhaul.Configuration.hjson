@@ -294,6 +294,11 @@ Enemies: {
 		// DisplayName: "Enable Enemy Lunges"
 		// Description: "When enabled, walking enemies may lunge at you when they get close."
 	}
+
+	EnableNormalEnemyEffects: {
+		// DisplayName: "Enable Normal Enemy Effects"
+		// Description: ""
+	}
 }
 
 Guns: {

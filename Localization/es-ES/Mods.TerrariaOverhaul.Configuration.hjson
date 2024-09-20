@@ -294,6 +294,11 @@ Enemies: {
 		DisplayName: "Activar embestidas de enemigos"
 		Description: "Al activar, algunos enemigos podrán embestir al estar cerca."
 	}
+
+	EnableNormalEnemyEffects: {
+		// DisplayName: "Enable Normal Enemy Effects"
+		// Description: ""
+	}
 }
 
 Guns: {

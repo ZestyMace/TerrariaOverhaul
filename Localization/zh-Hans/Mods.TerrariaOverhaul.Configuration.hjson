@@ -286,6 +286,11 @@ Enemies: {
 		DisplayName: "敌怪飞扑"
 		Description: "开启后，步行敌怪在接近你时可能会扑向你。"
 	}
+
+	EnableNormalEnemyEffects: {
+		// DisplayName: "Enable Normal Enemy Effects"
+		// Description: ""
+	}
 }
 
 Guns: {

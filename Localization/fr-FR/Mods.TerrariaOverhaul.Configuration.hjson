@@ -294,6 +294,11 @@ Enemies: {
 		DisplayName: "Activer les Fentes d'Ennemis"
 		Description: "Les ennemis se déplaçant au sol peuvent se jeter vers vous quand ils sont assez proches."
 	}
+
+	EnableNormalEnemyEffects: {
+		// DisplayName: "Enable Normal Enemy Effects"
+		// Description: ""
+	}
 }
 
 Guns: {
