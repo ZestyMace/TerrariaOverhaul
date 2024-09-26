@@ -43,6 +43,7 @@
 - The decal system received some subtle improvements again. Some decals will now be randomly rotated. Involved math has been reworked and heavily simplified.
 - For English, changed `Expert`'s difficulty level rename to `Turn Me Undead`. For obvious reasons.
 - Removed all unused and functionless legacy content from compilation: `Charcoal`, `Calendars`, `Gramophones`, `Stone Axes`, `Stone Pickaxes`, `Ash Clots`, `Walking Ashes`. These bits will be reintroduced when required.
+- Wall flips and wall rolls were made slightly more reliable, with their code rewritten.
 ### Configuration
 - Existing features received the following new options:
   **Guns:** `EnableMinigunDynamicFirerate`, `EnableStarCannonDynamicFirerate`.
