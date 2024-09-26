@@ -22,9 +22,6 @@ public class ProjectileGrapplingHookPhysics : GlobalProjectile
 
 	public const int GrapplingHookAIStyle = ProjAIStyleID.Hook;
 
-	private static HashSet<int>? grapplingTypesWarnedAbout;
-	private static Dictionary<int, float>? vanillaHookRangesInPixels;
-
 	private float maxDist;
 	private bool noPulling;
 
@@ -59,76 +56,13 @@ public class ProjectileGrapplingHookPhysics : GlobalProjectile
 
 			physics.ProjectileGrappleMovement(player, projectile);
 		};
-
-		// Vanilla's data for this is hardcoded and not accessible. These stats are from the wiki.
-		vanillaHookRangesInPixels = new Dictionary<int, float> {
-			// PHM Singlehooks
-			{ ProjectileID.Hook,                300f }, // ID 13
-			{ ProjectileID.SquirrelHook,        300f },	// ID 865
-			{ ProjectileID.GemHookAmethyst,     300f }, // ID 230
-			{ ProjectileID.GemHookTopaz,        330f },	// ID 231
-			{ ProjectileID.GemHookSapphire,     360f },	// ID 232
-			{ ProjectileID.GemHookEmerald,      390f },	// ID 233
-			{ ProjectileID.GemHookRuby,         420f },	// ID 234
-			{ ProjectileID.AmberHook,           420f },	// ID 753
-			{ ProjectileID.GemHookDiamond,      466f },	// ID 235
-			// PHM Multihooks					
-			{ ProjectileID.Web,                 375f },	// ID 165
-			{ ProjectileID.SkeletronHand,       350f },	// ID 256
-			{ ProjectileID.SlimeHook,           300f },	// ID 396
-			{ ProjectileID.FishHook,            400f },	// ID 372
-			{ ProjectileID.IvyWhip,             400f },	// ID 32
-			{ ProjectileID.BatHook,             500f },	// ID 315
-			{ ProjectileID.CandyCaneHook,       400f },	// ID 331
-			// HM Singlehooks					
-			{ ProjectileID.DualHookBlue,        440f },	// ID 73
-			{ ProjectileID.DualHookRed,         440f },	// ID 74
-			{ ProjectileID.QueenSlimeHook,      500f },	// ID 935
-			{ ProjectileID.StaticHook,          600f },	// ID 652
-			// HM Multihooks					
-			{ ProjectileID.TendonHook,          480f },	// ID 486
-			{ ProjectileID.ThornHook,           480f }, // ID 487
-			{ ProjectileID.IlluminantHook,      480f },	// ID 488
-			{ ProjectileID.WormHook,            480f },	// ID 489
-			{ ProjectileID.AntiGravityHook,     500f },	// ID 446
-			{ ProjectileID.WoodHook,            550f },	// ID 322
-			{ ProjectileID.ChristmasHook,       550f },	// ID 332
-			{ ProjectileID.LunarHookSolar,      550f },	// ID 646
-			{ ProjectileID.LunarHookVortex,     550f },	// ID 647
-			{ ProjectileID.LunarHookNebula,     550f },	// ID 648
-			{ ProjectileID.LunarHookStardust,   550f },	// ID 649
-		};
-	}
-
-	public override void Unload()
-	{
-		if (vanillaHookRangesInPixels != null) {
-			vanillaHookRangesInPixels.Clear();
-
-			vanillaHookRangesInPixels = null;
-		}
 	}
 
 	public void ProjectileGrappleMovement(Player player, Projectile proj)
 	{
-		if (vanillaHookRangesInPixels == null) {
-			throw new InvalidOperationException($"'{nameof(ProjectileGrappleMovement)}' called before '{nameof(Load)}'.");
-		}
-
 		var playerCenter = player.Center;
 		var projCenter = proj.Center;
-		float hookRange;
-
-		if (proj.ModProjectile != null) {
-			hookRange = proj.ModProjectile.GrappleRange();
-		} else if (!vanillaHookRangesInPixels.TryGetValue(proj.type, out hookRange)) {
-			// Fallback, not intended to be ran.
-			hookRange = 512f;
-
-			if ((grapplingTypesWarnedAbout ??= new()).Add(proj.type)) {
-				DebugSystem.Logger.Warn($"Vanilla grappling hook '{proj.Name}' (ID: {proj.type}) does not have a hook range assigned. Please report this.");
-			}
-		}
+		var hookStats = GrapplingHookStats.Get(player, proj);
 
 		var mountedCenter = player.MountedCenter;
 		var mountedOffset = mountedCenter - projCenter;
@@ -149,10 +83,10 @@ public class ProjectileGrapplingHookPhysics : GlobalProjectile
 
 		// Prevent hooks from going farther than normal
 		float ClampDistance(float distance)
-			=> MathHelper.Clamp(distance, 0f, hookRange - 1f);
+			=> MathHelper.Clamp(distance, 0f, hookStats.Range - 1f);
 
 		float dist = ClampDistance(Vector2.Distance(playerCenter, projCenter));
-		bool down = player.controlDown && maxDist < hookRange;
+		bool down = player.controlDown && maxDist < hookStats.Range;
 		bool up = player.controlUp;
 
 		const float PullSpeed = 12.5f;
