@@ -118,6 +118,7 @@ public sealed class VortexBeater : ItemOverhaul
 		// Emit weapon firing code.
 		il.Index = weaponFiringEmitIndex;
 
+		il.HijackIncomingLabels();
 		il.Emit(OpCodes.Ldarg_0);
 		il.EmitDelegate(OnWeaponFiring);
 	}
@@ -134,6 +135,10 @@ public sealed class VortexBeater : ItemOverhaul
 		}
 
 		if (player.HeldItem is not Item { IsAir: false } item) {
+			return;
+		}
+
+		if (Main.GameUpdateCount % 5 != 0) {
 			return;
 		}
 
