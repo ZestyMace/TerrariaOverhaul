@@ -53,9 +53,11 @@
 - Grappling hooks' code was made more data-driven, with some vanilla hook range values corrected.
 ### Configuration
 - Existing features received the following new options:
+  **Awareness:** `EnableHealthPickupSounds`, `EnableManaPickupSounds`.
   **Guns:** `EnableMinigunDynamicFirerate`, `EnableStarCannonDynamicFirerate`.
   **Visuals:** `EnableEnemyFlinchingEffects`.
 - New features were introduced with the following options:
+  **Balance:** `EnableConsistentDifficulty`.
   **Bosses:** `EnableDestroyerEffects`, `EnableDestroyerMakeover`, `EnableEaterOfWorldsEffects`.
 - The `CameraSmoothness` option's effects will now closer match players' percentage scaling expectations.
 ### Localization

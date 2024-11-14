@@ -115,6 +115,16 @@ Awareness: {
 	DisplayName: "警觉"
 	Description: "Overhaul包含一些帮助玩家提高感知游戏角色状态的功能，以提升沉浸感。"
 
+	EnableHealthPickupSounds: {
+		// DisplayName: "Enable New Health Pickup Audio"
+		// Description: "If enabled, new immersive sound effects will be used for health pickups."
+	}
+
+	EnableManaPickupSounds: {
+		// DisplayName: "Enable New Mana Pickup Audio"
+		// Description: "If enabled, new immersive sound effects will be used for mana pickups."
+	}
+
 	LowHealthFilteringIntensity: {
 		DisplayName: "残血音频过滤强度"
 		Description: "控制当你生命值较低时低通滤波（消音）效果的强度。"

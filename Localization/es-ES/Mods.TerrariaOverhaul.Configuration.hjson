@@ -119,6 +119,16 @@ Awareness: {
 		también mejorando la inmersión en el proceso.
 		'''
 
+	EnableHealthPickupSounds: {
+		// DisplayName: "Enable New Health Pickup Audio"
+		// Description: "If enabled, new immersive sound effects will be used for health pickups."
+	}
+
+	EnableManaPickupSounds: {
+		// DisplayName: "Enable New Mana Pickup Audio"
+		// Description: "If enabled, new immersive sound effects will be used for mana pickups."
+	}
+
 	LowHealthFilteringIntensity: {
 		DisplayName: "Intensidad de filtro de vida baja"
 		Description: "Controla la intensidad del filtro de paso bajo de audio (amortiguado) que ocurre cuando tienes poca vida."

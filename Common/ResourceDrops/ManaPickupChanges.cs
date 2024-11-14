@@ -15,6 +15,7 @@ namespace TerrariaOverhaul.Common.ResourceDrops;
 public sealed class ManaPickupChanges : ResourcePickupChanges<ManaPickupChanges>
 {
 	public static readonly ConfigEntry<bool> EnableManaDropsRework = new(ConfigSide.Both, true, "Balance", "Magic");
+	public static readonly ConfigEntry<bool> EnableManaPickupSounds = new(ConfigSide.ClientOnly, true, "Awareness", "Magic");
 
 	public const int ManaPerPickup = 5;
 
@@ -33,7 +34,7 @@ public sealed class ManaPickupChanges : ResourcePickupChanges<ManaPickupChanges>
 
 		if (!Main.dedServ) {
 			LightColor = new Vector3(0f, 0f, 1f);
-			PickupSound = new SoundStyle($"{nameof(TerrariaOverhaul)}/Assets/Sounds/Pickups/ManaPickup") {
+			PickupSound = !EnableManaPickupSounds ? SoundID.Item30 : new SoundStyle($"{nameof(TerrariaOverhaul)}/Assets/Sounds/Pickups/ManaPickup") {
 				Volume = 0.275f,
 				PitchVariance = 0.15f,
 				MaxInstances = 3,

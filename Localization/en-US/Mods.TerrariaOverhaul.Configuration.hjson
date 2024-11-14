@@ -119,6 +119,16 @@ Awareness: {
 		also improving immersion in the process.
 		'''
 
+	EnableHealthPickupSounds: {
+		DisplayName: "Enable New Health Pickup Audio"
+		Description: "If enabled, new immersive sound effects will be used for health pickups."
+	}
+
+	EnableManaPickupSounds: {
+		DisplayName: "Enable New Mana Pickup Audio"
+		Description: "If enabled, new immersive sound effects will be used for mana pickups."
+	}
+
 	LowHealthFilteringIntensity: {
 		DisplayName: "Low Health Filtering Intensity"
 		Description: "Controls the intensity of low pass audio filtering (muffling) that occurs when you are low on health."

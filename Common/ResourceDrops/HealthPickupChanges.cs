@@ -13,6 +13,7 @@ namespace TerrariaOverhaul.Common.ResourceDrops;
 public sealed class HealthPickupChanges : ResourcePickupChanges<HealthPickupChanges>
 {
 	public static readonly ConfigEntry<bool> EnableHealthDropsRework = new(ConfigSide.Both, true, "Balance");
+	public static readonly ConfigEntry<bool> EnableHealthPickupSounds = new(ConfigSide.ClientOnly, true, "Awareness");
 
 	public const int HealthPerPickup = 5;
 
@@ -31,7 +32,7 @@ public sealed class HealthPickupChanges : ResourcePickupChanges<HealthPickupChan
 
 		if (!Main.dedServ) {
 			LightColor = new Vector3(1f, 0f, 0f);
-			PickupSound = new SoundStyle($"{nameof(TerrariaOverhaul)}/Assets/Sounds/Pickups/LifePickup") {
+			PickupSound = !EnableHealthPickupSounds ? SoundID.Item4 : new SoundStyle($"{nameof(TerrariaOverhaul)}/Assets/Sounds/Pickups/LifePickup") {
 				Volume = 0.33f,
 				PitchVariance = 0.15f,
 				MaxInstances = 3,
