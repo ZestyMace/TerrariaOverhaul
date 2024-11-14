@@ -158,6 +158,11 @@ Balance: {
 		Description: "Attiva tutti i cambiamenti sulla difficoltà della mod."
 	}
 
+	EnableConsistentDifficulty: {
+		// DisplayName: "Enable Consistent Difficulty"
+		// Description: "If enabled, behaviors from higher level difficulties will be present in lower ones. It is recommended that you keep this on, unless a compatibility issue is encountered."
+	}
+
 	EnableDamageRandomizationRemoval: {
 		// DisplayName: "Enable Damage Randomization Removal"
 		// Description: "When enabled, all damage numbers in the game will be made fair and predictable."

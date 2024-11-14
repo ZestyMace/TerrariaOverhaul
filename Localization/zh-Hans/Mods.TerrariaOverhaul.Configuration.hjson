@@ -150,6 +150,11 @@ Balance: {
 		Description: "本模组对游戏整体难度的重新平衡。"
 	}
 
+	EnableConsistentDifficulty: {
+		// DisplayName: "Enable Consistent Difficulty"
+		// Description: "If enabled, behaviors from higher level difficulties will be present in lower ones. It is recommended that you keep this on, unless a compatibility issue is encountered."
+	}
+
 	EnableDamageRandomizationRemoval: {
 		DisplayName: "移除伤害浮动"
 		Description: "开启后，游戏中所有伤害将不再随机浮动，所见即所得。"

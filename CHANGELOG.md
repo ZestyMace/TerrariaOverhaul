@@ -37,6 +37,12 @@
 - **`The Eater of Worlds`** has received an audiovisual overhaul, featuring a debris effect system, disgusting movement & digging audio, as well as terrifying attack and pain screeches that make it look like the victim during its battle. Who knew worms could sing?
 - Crimson and Corruption enemies now have new hit and death audio.
 - Leaves particles will now be baked as decals whenever they hit the ground.
+### Difficulty
+- Various changes to compensate all the extra power given to the player by the mod.
+- Enemy health multipliers across all difficulties were increased from `x2.0` to `x2.25`.
+- Enemy defense multipliers across all difficulties were increased from `x1.0` to `x1.25`.
+- Mechanics and enemies in all Overhaul difficulty levels now always behave like it's Master Mode, getting rid of ableistic content & feature walling, and fixing hidden balance inconsistencies. This means that Expert-level behaviors and loot will now be found even on `I'm Too Young To Mine`. However, Boss Relics and other Master-mode exclusive rewards remain exclusive to `I Am Cthulhu Incarnate`, as they are purely visual and do not affect gameplay.
+  The `EnableConsistentDifficulty` option has been added in case this leads to mod compatibility issues.
 ### Changes
 - Melee weapon swing velocity and miniguns' velocity recoil are now both scaled by the player's current gravity intensity. This resolves [#204](https://github.com/Mirsario/TerrariaOverhaul/issues/204) (Featherfall weapon combos allow infinite ascension).
 - Climbing can now be activated past the second third of any dodgeroll animation, resulting in more fluid movement combos.
