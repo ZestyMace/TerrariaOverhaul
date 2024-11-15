@@ -14,7 +14,7 @@ namespace TerrariaOverhaul.Common.EntityEffects;
 public sealed class PlayerHoldOutAnimation : ModPlayer
 {
 	public static readonly ConfigEntry<bool> AlwaysShowAimableWeapons = new(ConfigSide.ClientOnly, true, "Visuals");
-
+	
 	private float directItemRotation;
 	private float directTargetItemRotation;
 
@@ -38,7 +38,7 @@ public sealed class PlayerHoldOutAnimation : ModPlayer
 			if (sItem.useStyle == ItemUseStyleID.Shoot) {
 				var modPlayer = player.GetModPlayer<PlayerHoldOutAnimation>();
 
-				player.itemRotation = ConvertRotation(modPlayer.directItemRotation, player) - MathHelper.ToRadians(modPlayer.VisualRecoil * player.direction * (int)player.gravDir);
+				player.itemRotation = ConvertRotation(modPlayer.directItemRotation - player.fullRotation, player) - MathHelper.ToRadians(modPlayer.VisualRecoil * player.direction * (int)player.gravDir);
 
 				// Fix rotation range.
 				if (player.itemRotation > MathHelper.Pi) {
@@ -99,6 +99,10 @@ public sealed class PlayerHoldOutAnimation : ModPlayer
 
 	private static bool ShouldForceUseAnim(Player player, Item item)
 	{
+		if (player.sleeping.isSleeping) {
+			return false;
+		}
+
 		if (item.noUseGraphic) {
 			return false;
 		}

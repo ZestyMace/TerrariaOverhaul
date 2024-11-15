@@ -74,6 +74,8 @@
 - Fixed a rare cross-mod issue where Overhaul's falling trees would cause issues by using outdated "spawn sources" in item/loot instantiation.
 - Fixed the `EnableDecals` option preventing only addition of new decals but not rendering of existing ones.
 - Fixed NPCs being tilted and/or shaking in the game's credits cutscene, especially if a world hasn't been loaded prior.
+- Fixed the `Always Show Aimable Weapons` feature unintentionally being active when sleeping in a bed.
+- Fixed weapon aiming animations not taking the player's full body rotation into account.
 
 # 5.0 BETA 14
 
