@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using MonoMod.Cil;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static Terraria.ModLoader.PlayerDrawLayer;
+using TerrariaOverhaul.Utilities;
 
 namespace TerrariaOverhaul.Common.BloodAndGore;
 
@@ -15,7 +14,7 @@ public class GoreSystem : ModSystem
 {
 	private static readonly List<List<(Gore gore, int index)>> goreRecordingLists = new();
 	
-	private static int disableGoreSubscriptions;
+	private static Counter disableGoreCounter;
 
 	public override void Load()
 	{
@@ -41,18 +40,10 @@ public class GoreSystem : ModSystem
 		}
 	}
 
-	/// <summary> Invokes the provided delegate. During its execution, spawning of gores will not do anything. </summary>
-	public static void InvokeWithGoreSpawnDisabled(Action action)
-	{
-		disableGoreSubscriptions++;
+	/// <summary> Temporarily disables gore spawn. The returned handle has to be disposed. </summary>
+	public static Counter.Handle DisableGoreSpawn()
+		=> disableGoreCounter.Increase();
 
-		try {
-			action();
-		}
-		finally {
-			disableGoreSubscriptions--;
-		}
-	}
 	/// <summary> Invokes the provided delegate. Returns a list of gores that were spawned during the delegate's execution. </summary>
 	public static List<(Gore gore, int goreIndex)> InvokeWithGoreSpawnRecording(Action action)
 	{
@@ -107,7 +98,7 @@ public class GoreSystem : ModSystem
 	private static int NewGoreDetour(On_Gore.orig_NewGore_IEntitySource_Vector2_Vector2_int_float orig, IEntitySource entitySource, Vector2 position, Vector2 velocity, int type, float scale)
 	{
 		// Disable gore spawn, if requested.
-		if (disableGoreSubscriptions > 0) {
+		if (disableGoreCounter.Active) {
 			return Main.maxGore;
 		}
 

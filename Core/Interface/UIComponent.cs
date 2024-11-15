@@ -30,6 +30,6 @@ public abstract class UIComponent
 
 		OnDetach();
 
-		Element = null;
+		Element = null!;
 	}
 }

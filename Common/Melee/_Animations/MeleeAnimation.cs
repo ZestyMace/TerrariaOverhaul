@@ -9,6 +9,8 @@ using TerrariaOverhaul.Utilities;
 
 namespace TerrariaOverhaul.Common.Melee;
 
+#pragma warning disable IDE0060 // Remove unused parameter
+
 public abstract class MeleeAnimation : ItemComponent
 {
 	public static readonly ConfigEntry<bool> EnableImprovedMeleeAnimations = new(ConfigSide.ClientOnly, true, "Visuals");

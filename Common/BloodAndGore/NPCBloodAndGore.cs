@@ -16,8 +16,8 @@ public class NPCBloodAndGore : GlobalNPC
 {
 	public static readonly ConfigEntry<bool> EnableAdvancedParticles = new(ConfigSide.ClientOnly, true, "BloodAndGore");
 
-	private static uint disableVanillaParticlesSubscriptions;
-	private static uint disableReplacementsSubscriptions;
+	private static Counter disableVanillaParticlesCounter;
+	private static Counter disableReplacementsCounter;
 
 	public int LastHitBloodAmount { get; private set; }
 
@@ -37,11 +37,11 @@ public class NPCBloodAndGore : GlobalNPC
 		On_NPC.HitEffect_HitInfo += HitEffectDetour;
 	}
 
-	public static CounterHandle DisableParticleReplacements()
-		=> new(ref disableReplacementsSubscriptions);
+	public static Counter.Handle DisableParticleReplacements()
+		=> disableReplacementsCounter.Increase();
 
-	public static CounterHandle DisableVanillaParticles()
-		=> new(ref disableVanillaParticlesSubscriptions);
+	public static Counter.Handle DisableVanillaParticles()
+		=> disableVanillaParticlesCounter.Increase();
 
 	//TODO: Using HitEffect was a bad idea in general. If possible, it's better to try to simulate its particle results instead.
 	public static void SpawnBloodWithHitEffect(NPC npc, int direction, int damage)
@@ -54,15 +54,17 @@ public class NPCBloodAndGore : GlobalNPC
 		}
 
 		using (DisableVanillaParticles()) {
-			try {
-				GoreSystem.InvokeWithGoreSpawnDisabled(() => NPCLoader.HitEffect(npc, new NPC.HitInfo {
-					Damage = damage,
-					HitDirection = direction,
-				}));
-			}
-			finally {
-				if (lifeToRestore.HasValue) {
-					npc.life = lifeToRestore.Value;
+			using (GoreSystem.DisableGoreSpawn()) {
+				try {
+					NPCLoader.HitEffect(npc, new NPC.HitInfo {
+						Damage = damage,
+						HitDirection = direction,
+					});
+				}
+				finally {
+					if (lifeToRestore.HasValue) {
+						npc.life = lifeToRestore.Value;
+					}
 				}
 			}
 		}
@@ -79,7 +81,7 @@ public class NPCBloodAndGore : GlobalNPC
 	private static int NewDustDetour(On_Dust.orig_NewDust orig, Vector2 position, int width, int height, int type, float speedX, float speedY, int alpha, Color color, float scale)
 	{
 		if (!EnableAdvancedParticles
-			|| disableReplacementsSubscriptions > 0
+			|| disableReplacementsCounter.Active
 			|| (!ChildSafety.Disabled && type >= 0 && type <= ChildSafety.SafeDust.Length && !ChildSafety.SafeDust[type])) {
 			return orig(position, width, height, type, speedX, speedY, alpha, color, scale);
 		}
@@ -101,7 +103,7 @@ public class NPCBloodAndGore : GlobalNPC
 
 		switch (type) {
 			default:
-				if (disableVanillaParticlesSubscriptions > 0) {
+				if (disableVanillaParticlesCounter.Active) {
 					break;
 				}
 
@@ -127,7 +129,7 @@ public class NPCBloodAndGore : GlobalNPC
 	private static void HitEffectDetour(On_NPC.orig_HitEffect_HitInfo orig, NPC npc, NPC.HitInfo hitInfo)
 	{
 		// Ignore contexts where we only want blood to spawn.
-		if (disableVanillaParticlesSubscriptions > 0 || !npc.TryGetGlobalNPC(out NPCBloodAndGore npcBloodAndGore)) {
+		if (disableVanillaParticlesCounter.Active || !npc.TryGetGlobalNPC(out NPCBloodAndGore npcBloodAndGore)) {
 			orig(npc, hitInfo);
 
 			return;

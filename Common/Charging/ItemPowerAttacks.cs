@@ -11,6 +11,8 @@ using TerrariaOverhaul.Utilities;
 
 namespace TerrariaOverhaul.Common.Charging;
 
+#pragma warning disable IDE0060 // Remove unused parameter
+
 public sealed class ItemPowerAttacks : ItemComponent, IModifyCommonStatModifiers, ICanDoMeleeDamage, ICanTurnDuringItemUse
 {
 	public delegate bool CanStartPowerAttackDelegate(Item item, Player player);

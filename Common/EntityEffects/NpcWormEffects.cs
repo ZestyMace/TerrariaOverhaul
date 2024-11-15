@@ -24,7 +24,6 @@ public sealed class NpcWormEffects : GlobalNPC
 		public ScreenShake UndergroundScreenShake;
 		public DebrisEffects.Style DebrisStyle;
 
-		internal SlotId soundId;
 		internal bool wasUnderground;
 	}
 

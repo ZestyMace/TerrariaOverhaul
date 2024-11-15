@@ -76,7 +76,7 @@ public sealed class PlayerDirectioning : ModPlayer
 
 	private const int MouseWorldSyncFrequency = 12;
 
-	private static int skipSetDirectionCounter;
+	private static Counter skipSetDirectionCounter;
 
 	private int lastSyncHash;
 	private Override<Vector2> lookPositionOverride;
@@ -100,25 +100,13 @@ public sealed class PlayerDirectioning : ModPlayer
 		};
 
 		On_PlayerSleepingHelper.StartSleeping += static (On_PlayerSleepingHelper.orig_StartSleeping orig, ref PlayerSleepingHelper self, Player player, int x, int y) => {
-			try {
-				skipSetDirectionCounter++;
-
-				orig(ref self, player, x, y);
-			}
-			finally {
-				skipSetDirectionCounter--;
-			}
+			using var _ = skipSetDirectionCounter.Increase();
+			orig(ref self, player, x, y);
 		};
 
 		On_PlayerSittingHelper.SitDown += static (On_PlayerSittingHelper.orig_SitDown orig, ref PlayerSittingHelper self, Player player, int x, int y) => {
-			try {
-				skipSetDirectionCounter++;
-
-				orig(ref self, player, x, y);
-			}
-			finally {
-				skipSetDirectionCounter--;
-			}
+			using var _ = skipSetDirectionCounter.Increase();
+			orig(ref self, player, x, y);
 		};
 	}
 
@@ -167,7 +155,7 @@ public sealed class PlayerDirectioning : ModPlayer
 			}
 		}
 
-		if (skipSetDirectionCounter > 0 || Player.sleeping.isSleeping || Player.sitting.isSitting) {
+		if (skipSetDirectionCounter.Active || Player.sleeping.isSleeping || Player.sitting.isSitting) {
 			return;
 		}
 

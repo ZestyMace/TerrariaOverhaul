@@ -24,8 +24,10 @@ dotnet_diagnostic.CA2211.severity = none
 dotnet_diagnostic.IDE0011.severity = warning # Always ask for curly braces everywhere.
 # IDE0028: Collection initialization can be simplified
 # IDE0300: Collection initialization can be simplified
+# IDE0301: Collection initialization can be simplified
 dotnet_diagnostic.IDE0028.severity = none
 dotnet_diagnostic.IDE0300.severity = none
+dotnet_diagnostic.IDE0301.severity = none
 # IDE0290: Use primary constructor
 dotnet_diagnostic.IDE0290.severity = none
 

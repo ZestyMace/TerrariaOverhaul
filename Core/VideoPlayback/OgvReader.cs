@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.Serialization;
 using System.Threading.Tasks;
-using Ionic.Zlib;
 using Microsoft.Xna.Framework.Media;
 using ReLogic.Content;
 using ReLogic.Content.Readers;
@@ -16,6 +15,8 @@ using TerrariaOverhaul.Utilities;
 using static Theorafile;
 
 namespace TerrariaOverhaul.Core.VideoPlayback;
+
+#pragma warning disable SYSLIB0050 // Type or member is obsolete
 
 [Autoload(false)]
 public sealed class OgvReader : IAssetReader, ILoadable
@@ -66,7 +67,7 @@ public sealed class OgvReader : IAssetReader, ILoadable
 		stream.CopyTo(memoryStream);
 
 		int numBytes = (int)memoryStream.Position;
-		var dataPtr = Marshal.AllocHGlobal(numBytes);
+		nint dataPtr = Marshal.AllocHGlobal(numBytes);
 		var unmanagedStream = new UnmanagedMemoryStream((byte*)dataPtr, numBytes, numBytes, FileAccess.ReadWrite);
 
 		memoryStream.Seek(0, SeekOrigin.Begin);
@@ -82,7 +83,7 @@ public sealed class OgvReader : IAssetReader, ILoadable
 		// - Mirsario.
 		var result = (Video)FormatterServices.GetUninitializedObject(videoType);
 
-		int openResult = tf_open_callbacks(dataPtr, out var theoraPtr, callbacks);
+		int openResult = tf_open_callbacks(dataPtr, out nint theoraPtr, callbacks);
 
 		if (openResult != 0) {
 			throw new InvalidOperationException($"Theorafile returned code '{openResult}' when trying to load data.");

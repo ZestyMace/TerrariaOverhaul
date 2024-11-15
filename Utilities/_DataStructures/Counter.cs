@@ -1,0 +1,34 @@
+﻿using System.Runtime.CompilerServices;
+
+namespace TerrariaOverhaul.Utilities;
+
+#pragma warning disable CS9084 // Struct member returns 'this' or other instance members by reference
+
+public struct Counter
+{
+	private uint value;
+
+	public readonly bool Active => value != 0;
+
+	public unsafe Handle Increase()
+		=> new(ref value);
+
+	public ref struct Handle
+	{
+		private ref uint counter = ref Unsafe.NullRef<uint>();
+
+		internal Handle(ref uint counter)
+		{
+			this.counter = ref counter;
+			checked { counter++; }
+		}
+
+		public void Dispose()
+		{
+			if (!Unsafe.IsNullRef(ref counter)) {
+				checked { counter--; }
+				counter = ref Unsafe.NullRef<uint>();
+			}
+		}
+	}
+}
