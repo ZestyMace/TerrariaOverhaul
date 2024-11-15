@@ -47,6 +47,7 @@
 - Melee weapon swing velocity and miniguns' velocity recoil are now both scaled by the player's current gravity intensity. This resolves [#204](https://github.com/Mirsario/TerrariaOverhaul/issues/204) (Featherfall weapon combos allow infinite ascension).
 - Climbing can now be activated past the second third of any dodgeroll animation, resulting in more fluid movement combos.
 - The decal system received some subtle improvements again. Some decals will now be randomly rotated. Involved math has been reworked and heavily simplified.
+- Slightly improved the melee power attack charge animation.
 - For English, changed `Expert`'s difficulty level rename to `Turn Me Undead`. For obvious reasons.
 - Removed all unused and functionless legacy content from compilation: `Charcoal`, `Calendars`, `Gramophones`, `Stone Axes`, `Stone Pickaxes`, `Ash Clots`, `Walking Ashes`. These bits will be reintroduced when required.
 - Wall flips and wall rolls were made slightly more reliable, with their code rewritten.
