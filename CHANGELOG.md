@@ -66,7 +66,8 @@
 - Fixed Overhaul's main menu buttons sometimes being incorrectly shown in English when a different language is selected.
 - A few more GUI elements were made localizable.
 ### Fixes
-- Fixed ambience tracks being broken again. If only unit tests were to be a thing...
+- Fixed ambience tracks being broken again. If only unit tests were a thing...
+- Fixed the "Evil Drone" ambience track unintentionally playing in the Jungle due to a mishap in the internal 'environment signal' system.
 - Fixed the Vortex Beater playing its firing sound effects every frame, via a temporary workaround.
 - Fixed the crosshair sometimes appearing together with the base cursor, when hovering over GUI elements.
 - Fixed tile-based sound occlusion not being updated whenever sounds happen to move.
