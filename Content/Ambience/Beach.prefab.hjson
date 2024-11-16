@@ -1,0 +1,21 @@
+BeachLoop: {
+	AmbienceTrack: {
+		Sound: {
+			SoundPath: "TerrariaOverhaul/Assets/Sounds/Ambience/Beach/BeachLoop"
+			Type: Ambient
+			Volume: 0.50
+			IsLooped: true
+		}
+
+		// Plays at the beach.
+		Variables: {
+			Volume: {
+				Inputs: [ "Beach" ]
+				Operation: Multiply
+			}
+		}
+		
+		// Muffled indoors.
+		SoundIsWallOccluded: true
+	}
+}
