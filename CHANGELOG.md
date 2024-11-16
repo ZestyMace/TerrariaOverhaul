@@ -66,6 +66,7 @@
 - Fixed Overhaul's main menu buttons sometimes being incorrectly shown in English when a different language is selected.
 - A few more GUI elements were made localizable.
 ### Fixes
+- Fixed issue [#217](https://github.com/Mirsario/TerrariaOverhaul/issues/217) (Decals may become offset or warped in rendering).
 - Fixed ambience tracks being broken again. If only unit tests were a thing...
 - Fixed the "Evil Drone" ambience track unintentionally playing in the Jungle due to a mishap in the internal 'environment signal' system.
 - Fixed the Vortex Beater playing its firing sound effects every frame, via a temporary workaround.

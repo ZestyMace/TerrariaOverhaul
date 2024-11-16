@@ -136,11 +136,11 @@ public sealed class ChunkDecals : ChunkComponent
 		lock (lightingBuffer) {
 			const int NumTextures = 3;
 
+
 			shader.Parameters["texture0"].SetValue(texture);
 			shader.Parameters["texture1"].SetValue(Main.instance.tileTarget);
 			shader.Parameters["lightingBuffer"].SetValue(lightingBuffer);
-			//shader.Parameters["transformMatrix"].SetValue(Main.GameViewMatrix.TransformationMatrix);
-			shader.Parameters["transformMatrix"].SetValue(GetDefaultMatrix() * Matrix.CreateScale(Main.ForcedMinimumZoom));
+			shader.Parameters["transformMatrix"].SetValue(Main.GameViewMatrix.NormalizedTransformationmatrix);
 
 			graphicsDevice.BlendState = BlendState.AlphaBlend;
 
@@ -180,26 +180,5 @@ public sealed class ChunkDecals : ChunkComponent
 		}
 
 		styleData.DecalsToDraw[index] = decalInfo;
-	}
-
-	private static Matrix GetDefaultMatrix()
-	{
-		float num = Main.screenWidth > 0 ? 1f / Main.screenWidth : 0f;
-		float num2 = Main.screenHeight > 0 ? -1f / Main.screenHeight : 0f;
-
-		var matrix = default(Matrix);
-
-		matrix.M11 = num * 2f;
-		matrix.M22 = num2 * 2f;
-		matrix.M33 = 1f;
-		matrix.M44 = 1f;
-		matrix.M41 = -1f;
-		matrix.M42 = 1f;
-		matrix.M41 -= num;
-		matrix.M42 -= num2;
-
-		matrix *= Matrix.CreateScale(Main.GameZoomTarget);
-
-		return matrix;
 	}
 }
