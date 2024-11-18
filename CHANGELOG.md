@@ -35,6 +35,7 @@
 ### Additions
 - Implemented a 'camera curio system'. Subtly shifting and zooming on important areas, the system will be used to hint the player's attention towards important objects and events, increasing cinematic feel on top of all.
 - The following camera curios have been implemented:
+	- **Focus on NPCs in dialogues**;
 	- **Boss tracking** (subtle);
 	- **Focus on rare enemies** (subtle);
 	- **Focus on rare critters and NPCs** (subtle);
@@ -66,7 +67,7 @@
 - New features were introduced with the following options:
   **Balance:** `EnableConsistentDifficulty`.
   **Bosses:** `EnableDestroyerEffects`, `EnableDestroyerMakeover`, `EnableEaterOfWorldsEffects`.
-  **Camera:** `FocusCameraOnBosses`, `FocusCameraOnRareEnemies`, `FocusCameraOnRareFriendlies`, `FocusCameraOnRarePickups`.
+  **Camera:** `FocusCameraOnBosses`,  `FocusCameraOnDialogues`, `FocusCameraOnRareEnemies`, `FocusCameraOnRareFriendlies`, `FocusCameraOnRarePickups`.
 - The `CameraSmoothness` option's effects will now closer match players' percentage scaling expectations.
 ### Localization
 - Chinese (`59.1%` -> `100%`) - PRs [#232](https://github.com/Mirsario/TerrariaOverhaul/pull/232) & [#233](https://github.com/Mirsario/TerrariaOverhaul/pull/233) by [**xiaoyvyv**](https://github.com/xiaoyvyv) & [**Cyrillya**](https://github.com/Cyrillya).

@@ -309,6 +309,11 @@ Camera: {
 		Description: "If enabled, the camera will subtly hint towards the nearest alive boss."
 	}
 
+	FocusCameraOnDialogues: {
+		DisplayName: "Focus Camera On Dialogues"
+		Description: "If enabled, the camera will zoom-in and focus on the NPC when the player speaks with one'."
+	}
+
 	FocusCameraOnRareEnemies: {
 		DisplayName: "Focus Camera On Rare Enemies"
 		Description: "If enabled, the camera will subtly hint towards the nearest rare enemy."
