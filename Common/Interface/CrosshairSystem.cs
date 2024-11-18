@@ -114,7 +114,7 @@ public sealed class CrosshairSystem : ModSystem
 		CrosshairImpulse impulse;
 
 		impulse.Effects = effects;
-		impulse.StartTime = TimeSpan.Zero; // To be set later.
+		impulse.StartTime = TimeSystem.CurrentTimeSpan;
 		impulse.LengthInSeconds = lengthInSeconds;
 
 		impulses[impulseCount++] = impulse;
@@ -131,7 +131,7 @@ public sealed class CrosshairSystem : ModSystem
 			return false;
 		}
 
-		if (Main.dedServ || Main.gameMenu) {
+		if (Main.dedServ || Main.gameMenu || Main.hideUI) {
 			return false;
 		}
 
@@ -166,10 +166,6 @@ public sealed class CrosshairSystem : ModSystem
 		for (int i = 0, j = 0, loopEnd = impulseCount; i < loopEnd; i++) {
 			ref var impulse = ref impulses[i];
 			ref readonly var effects = ref impulse.Effects;
-
-			if (impulse.StartTime == TimeSpan.Zero) {
-				impulse.StartTime = currentTime;
-			}
 
 			float startTimeInSeconds = (float)impulse.StartTime.TotalSeconds;
 			float lengthInSeconds = impulse.LengthInSeconds;

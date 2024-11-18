@@ -95,6 +95,7 @@
 - Fixed NPCs being tilted and/or shaking in the game's credits cutscene, especially if a world hasn't been loaded prior.
 - Fixed the `Always Show Aimable Weapons` feature unintentionally being active when sleeping in a bed.
 - Fixed weapon aiming animations not taking the player's full body rotation into account.
+- Fixed crosshair animations stacking up when user interface is turned off via F11.
 ### Performance
 - Improved performance of falling tree texture generation.
 
