@@ -299,6 +299,26 @@ Camera: {
 		DisplayName: "Bildschirmrüttelstärke"
 		Description: "Kontrolliert die Intensität von Bildschirmrütteleffekten. Setze es auf null, um Bildschirmrütteln vollständig zu deaktivieren."
 	}
+
+	FocusCameraOnBosses: {
+		// DisplayName: "Focus Camera On Bosses"
+		// Description: "If enabled, the camera will subtly hint towards the nearest alive boss."
+	}
+
+	FocusCameraOnRareEnemies: {
+		// DisplayName: "Focus Camera On Rare Enemies"
+		// Description: "If enabled, the camera will subtly hint towards the nearest rare enemy."
+	}
+
+	FocusCameraOnRareFriendlies: {
+		// DisplayName: "Focus Camera On Rare Friendlies"
+		// Description: "If enabled, the camera will subtly hint towards the nearest bound NPC or rare critter."
+	}
+
+	FocusCameraOnRarePickups: {
+		// DisplayName: "Focus Camera On Rare Loot"
+		// Description: "If enabled, the camera will subtly hint towards the nearest rare loot."
+	}
 }
 
 Enemies: {
@@ -312,7 +332,7 @@ Enemies: {
 
 	EnableNormalEnemyEffects: {
 		// DisplayName: "Enable Normal Enemy Effects"
-		// Description: ""
+		// Description: "When enabled, various common enemies will receive new audiovisual effects."
 	}
 }
 
