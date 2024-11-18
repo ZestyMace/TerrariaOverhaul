@@ -309,6 +309,11 @@ Camera: {
 		// Description: "If enabled, the camera will subtly hint towards the nearest alive boss."
 	}
 
+	FocusCameraOnBossEvents: {
+		// DisplayName: "Focus Camera On Boss Events"
+		// Description: "If enabled, the camera will focus at boss entrances, transformations, and deaths."
+	}
+
 	FocusCameraOnDialogues: {
 		// DisplayName: "Focus Camera On Dialogues"
 		// Description: "If enabled, the camera will zoom-in and focus on the NPC when the player speaks with one'."
@@ -574,6 +579,11 @@ Music: {
 	EnableBossDeathMusicStop: {
 		// DisplayName: "Enable Boss Death Music Stop"
 		// Description: "When enabled, music will be temporarily stopped whenever a boss is killed. For a dramatic effect."
+	}
+
+	PlayBossDeathTransitionCue: {
+		// DisplayName: "Play Boss Death Transition Cue"
+		// Description: "If enabled, a cinematic sound will play when the last alive boss is defeated."
 	}
 }
 
