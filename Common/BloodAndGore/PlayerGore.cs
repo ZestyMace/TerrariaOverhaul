@@ -201,11 +201,11 @@ public sealed class PlayerGore : ModPlayer
 		var camera = Main.Camera;
 
 		// Overrides necessary for successful rendering
-		using var fullBrightOverride = new ValueOverride<bool>(ref Main.gameMenu, true);
-		using var screenPositionOverride = new ValueOverride<Vector2>(ref Main.screenPosition, default);
-		using var rotationOriginOverride = new ValueOverride<Vector2>(ref player.fullRotationOrigin, default);
-		using var headRotationOverride = new ValueOverride<float>(ref player.headRotation, default);
-		using var alphaOverride = new ValueOverride<int>(ref player.immuneAlpha, 0);
+		using var fullBrightOverride = ValueOverride.Create(ref Main.gameMenu, true);
+		using var screenPositionOverride = ValueOverride.Create(ref Main.screenPosition, default);
+		using var rotationOriginOverride = ValueOverride.Create(ref player.fullRotationOrigin, default);
+		using var headRotationOverride = ValueOverride.Create(ref player.headRotation, default);
+		using var alphaOverride = ValueOverride.Create(ref player.immuneAlpha, 0);
 
 		// Prepare for rendering
 
@@ -229,7 +229,7 @@ public sealed class PlayerGore : ModPlayer
 			player.legFrame = legsFrame ?? defaultFrame;
 
 			bool wearsRobe = player.wearsRobe && part != DrawnPart.Legs;
-			using var robeOverride = new ValueOverride<bool>(ref player.wearsRobe, wearsRobe);
+			using var robeOverride = ValueOverride.Create(ref player.wearsRobe, wearsRobe);
 
 			Main.PlayerRenderer.DrawPlayer(Main.Camera, player, position, rotation, default);
 		}
