@@ -38,6 +38,7 @@
 	- **NPCs in dialogues**;
 	- **Boss tracking** (subtle);
 	- **Boss deaths**;
+	- **Local player's remains**;
 	- **Rare enemies** (subtle);
 	- **Rare critters and NPCs** (subtle);
 	- **Boss bags and rare pickups**;
@@ -70,7 +71,7 @@
 - New features were introduced with the following options:
   **Balance:** `EnableConsistentDifficulty`.
   **Bosses:** `EnableDestroyerEffects`, `EnableDestroyerMakeover`, `EnableEaterOfWorldsEffects`.
-  **Camera:** `FocusCameraOnBosses`, `FocusCameraOnBossEvents`,  `FocusCameraOnDialogues`, `FocusCameraOnRareEnemies`, `FocusCameraOnRareFriendlies`, `FocusCameraOnRarePickups`.
+  **Camera:** `FocusCameraOnBosses`, `FocusCameraOnBossEvents`,  `FocusCameraOnDialogues`, `FocusCameraOnPlayerDeath`, `FocusCameraOnRareEnemies`, `FocusCameraOnRareFriendlies`, `FocusCameraOnRarePickups`.
   **Music:** `PlayBossDeathTransitionCue`.
 - The `CameraSmoothness` option's effects will now closer match players' percentage scaling expectations.
 ### Localization

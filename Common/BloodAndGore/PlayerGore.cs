@@ -1,15 +1,19 @@
 ﻿//#define OUTPUT_TEST
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using ReLogic.Utilities;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.BloodAndGore;
+using TerrariaOverhaul.Common.Camera;
 using TerrariaOverhaul.Content.Gores;
 using TerrariaOverhaul.Core.Configuration;
 using TerrariaOverhaul.Utilities;
@@ -31,8 +35,10 @@ public sealed class PlayerGore : ModPlayer
 	}
 
 	public static readonly ConfigEntry<bool> EnablePlayerCharacterGore = new(ConfigSide.ClientOnly, true, "BloodAndGore");
+	public static readonly ConfigEntry<bool> FocusCameraOnPlayerDeath = new(ConfigSide.ClientOnly, true, "Camera");
 
 	private static DrawnPart currentlyDrawnPart;
+	private static List<(int Index, float Weight, Vector2 Position)>? lastDeathGore;
 
 	public override void Load()
 	{
@@ -61,6 +67,33 @@ public sealed class PlayerGore : ModPlayer
 				layer.Hide();
 			}
 		}
+	}
+
+	public override void UpdateDead()
+	{
+		if (!Player.IsLocal()) return;
+
+		var focusPoint = Main.LocalPlayer.Center;
+		if (lastDeathGore is { Count: > 0 } list) {
+			var weightedPosition = new WeightedValue<Vector2D>(default, 0.0);
+			foreach (ref var gore in CollectionsMarshal.AsSpan(list)) {
+				if (Main.gore[gore.Index].active)
+					gore.Position = Main.gore[gore.Index].AABBRectangle.Center();
+
+				weightedPosition.Add(gore.Position.ToF64(), gore.Weight);
+			}
+
+			focusPoint = weightedPosition.Total().ToF32();
+		}
+
+		CameraCurios.Create(focusPoint, new CameraCurio {
+			UniqueId = "PlayerDeath",
+			LengthInSeconds = 0.05f,
+			Range = null,
+			Weight = 1f,
+			FadeOutLength = 0.1f,
+			Zoom = +0.5f,
+		});
 	}
 
 	// Up for detouring.
@@ -98,18 +131,29 @@ public sealed class PlayerGore : ModPlayer
 		// Generated gore
 		var texture = CreateGoreTexture(player, bloodColor, out var framing);
 
+		if (player.IsLocal()) {
+			lastDeathGore ??= new();
+			lastDeathGore.Clear();
+		}
+
 		for (int i = 0; i < framing.ColumnCount; i++) {
 			var offset = i switch {
-				0 => new Vector2(0.000f, -20.0f), // Head
-				2 => new Vector2(-10.0f, 0.000f), // Left arm
-				3 => new Vector2(10.00f, 0.000f), // Right arm
-				4 => new Vector2(-10.0f, 20.00f), // Left leg
-				5 => new Vector2(10.00f, 20.00f), // Right leg
+				0 => new Vector2(+00.0f, -20.0f), // Head
+				2 => new Vector2(-10.0f, +00.0f), // Left arm
+				3 => new Vector2(+10.0f, +00.0f), // Right arm
+				4 => new Vector2(-10.0f, +20.0f), // Left leg
+				5 => new Vector2(+10.0f, +20.0f), // Right leg
 				_ => default, // Torso
+			};
+			float curioWeight = i switch {
+				0 => 3f,
+				1 => 1f,
+				_ => 0.2f,
 			};
 
 			var position = player.Center + offset;
-			var gore = Main.gore[DynamicGore.NewGore(texture, source, position, GetGoreVelocity(player))];
+			int goreIndex = DynamicGore.NewGore(texture, source, position, GetGoreVelocity(player));
+			var gore = Main.gore[goreIndex];
 
 			gore.drawOffset = new Vector2(0f, 8f);
 			gore.Frame = framing with {
@@ -118,6 +162,10 @@ public sealed class PlayerGore : ModPlayer
 
 			if (gore is OverhaulGore oGore) {
 				oGore.BleedColor = bloodColor;
+			}
+
+			if (player.IsLocal()) {
+				lastDeathGore!.Add((Index: goreIndex, Weight: curioWeight, Position: position));
 			}
 		}
 

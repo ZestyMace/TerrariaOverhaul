@@ -315,6 +315,11 @@ Camera: {
 		// Description: "If enabled, the camera will zoom-in and focus on the NPC when the player speaks with one'."
 	}
 
+	FocusCameraOnPlayerDeath: {
+		// DisplayName: "Focus Camera On Player Death"
+		// Description: "If enabled, the camera will zoom-in and focus on the local player's remains until they respawn."
+	}
+
 	FocusCameraOnRareEnemies: {
 		// DisplayName: "Focus Camera On Rare Enemies"
 		// Description: "If enabled, the camera will subtly hint towards the nearest rare enemy."
