@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace TerrariaOverhaul.Content.Buffs;
@@ -29,7 +30,7 @@ public sealed class CriticalJudgement : ModBuff
 
 		public override void ModifyHitNPCWithProj(Projectile proj, NPC target, ref NPC.HitModifiers modifiers)
 		{
-			if (TryApply()) {
+			if (!proj.minion && !ProjectileID.Sets.MinionShot[proj.type] && TryApply()) {
 				modifiers.SetCrit();
 				Clear();
 			}

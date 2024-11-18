@@ -65,6 +65,7 @@
 - Grappling hooks' code was made more data-driven, with some vanilla hook range values corrected.
 - Boss death music mute effect is now only triggered at the death of the last alive boss.
 - The crosshair will no longer shrink when UI scale is set to less than 100%. Additionally, a crosshair scale option has been added (x1.0 to x2.0 range) to account for high resolution screen users' needs. Finally, the crosshair will also now render using nearest-neighbour texture filtering.
+- `Critical Judgement`'s guaranteed critical strike will no longer be triggered by summons' attacks.
 ### Configuration
 - Existing features received the following new options:
   **Awareness:** `EnableHealthPickupSounds`, `EnableManaPickupSounds`.
