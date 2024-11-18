@@ -263,6 +263,11 @@ Bosses: {
 		// DisplayName: "Enable Eater Of Worlds Effects"
 		// Description: "When enabled, The Eater of Worlds boss will receive new audiovisual effects."
 	}
+
+	EnableEyeOfCthulhuEffects: {
+		// DisplayName: "Enable Eye Of Cthulhu Effects"
+		// Description: "When enabled, The Eye of Cthulhu boss will receive new audiovisual effects."
+	}
 }
 
 Camera: {

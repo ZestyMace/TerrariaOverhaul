@@ -42,6 +42,7 @@
 	- **Rare enemies** (subtle);
 	- **Rare critters and NPCs** (subtle);
 	- **Boss bags and rare pickups**;
+- `The Eye of Cthulhu` has received an audiovisual overhaul, featuring new sound effects and transformation camera effects.
 - **`The Destroyer`** has received a full audiovisual overhaul, featuring a new massive sprite, debris effect system, movement & digging audio, as well as robotic screeches meant to intimidate and warn players of their impending doom. This comes with two options, one for the sprite and another for the whole set of effects.
 - **`The Eater of Worlds`** has received an audiovisual overhaul, featuring a debris effect system, disgusting movement & digging audio, as well as terrifying attack and pain screeches that make it look like the victim during its battle. Who knew worms could sing?
 - When the last alive boss is killed, a cinematic transition cue is now played in addition to the aforementioned camera focus.
@@ -70,7 +71,7 @@
   **Visuals:** `EnableEnemyFlinchingEffects`.
 - New features were introduced with the following options:
   **Balance:** `EnableConsistentDifficulty`.
-  **Bosses:** `EnableDestroyerEffects`, `EnableDestroyerMakeover`, `EnableEaterOfWorldsEffects`.
+  **Bosses:** `EnableDestroyerEffects`, `EnableDestroyerMakeover`, `EnableEaterOfWorldsEffects`, `EnableEyeOfCthulhuEffects`.
   **Camera:** `FocusCameraOnBosses`, `FocusCameraOnBossEvents`,  `FocusCameraOnDialogues`, `FocusCameraOnPlayerDeath`, `FocusCameraOnRareEnemies`, `FocusCameraOnRareFriendlies`, `FocusCameraOnRarePickups`.
   **Music:** `PlayBossDeathTransitionCue`.
 - The `CameraSmoothness` option's effects will now closer match players' percentage scaling expectations.
