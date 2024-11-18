@@ -6,7 +6,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Common.Camera;
-using TerrariaOverhaul.Common.Crosshairs;
+using TerrariaOverhaul.Common.Interface;
 using TerrariaOverhaul.Common.Recoil;
 using TerrariaOverhaul.Content.Gores;
 using TerrariaOverhaul.Core.ItemComponents;

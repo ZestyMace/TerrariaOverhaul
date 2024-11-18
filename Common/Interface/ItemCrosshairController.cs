@@ -6,7 +6,7 @@ using TerrariaOverhaul.Core.ItemComponents;
 using TerrariaOverhaul.Core.Time;
 using TerrariaOverhaul.Utilities;
 
-namespace TerrariaOverhaul.Common.Crosshairs;
+namespace TerrariaOverhaul.Common.Interface;
 
 [Autoload(Side = ModSide.Client)]
 public sealed class ItemCrosshairController : ItemComponent

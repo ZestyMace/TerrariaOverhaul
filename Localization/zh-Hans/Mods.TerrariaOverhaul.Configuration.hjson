@@ -420,6 +420,11 @@ Interface: {
 		DisplayName: "动态准星"
 		Description: "准星是否根据武器使用状态而动态变化。"
 	}
+
+	CrosshairScale: {
+		// DisplayName: "Crosshair Scale"
+		// Description: "Controls the crosshair's size, allowing you to make it larger if you want."
+	}
 }
 
 Magic: {

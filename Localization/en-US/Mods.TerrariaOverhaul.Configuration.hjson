@@ -432,6 +432,11 @@ Interface: {
 		DisplayName: "Enable Crosshair Animations"
 		Description: "Whether the crosshair should animate in reaction to weapons firing and going on cooldowns."
 	}
+
+	CrosshairScale: {
+		DisplayName: "Crosshair Scale"
+		Description: "Controls the crosshair's size, allowing you to make it larger if you want."
+	}
 }
 
 Magic: {

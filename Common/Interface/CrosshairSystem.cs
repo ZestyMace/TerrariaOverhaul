@@ -9,8 +9,17 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using TerrariaOverhaul.Core.Configuration;
 using TerrariaOverhaul.Core.Time;
+using TerrariaOverhaul.Utilities;
 
-namespace TerrariaOverhaul.Common.Crosshairs;
+namespace TerrariaOverhaul.Common.Interface;
+
+public struct CrosshairEffects
+{
+	public (float Value, float LengthFactor) Offset;
+	public (float Value, float LengthFactor) Rotation;
+	public (Color Value, float LengthFactor) InnerColor;
+	public (Color Value, float LengthFactor) OuterColor;
+}
 
 [Autoload(Side = ModSide.Client)]
 public sealed class CrosshairSystem : ModSystem
@@ -36,6 +45,7 @@ public sealed class CrosshairSystem : ModSystem
 
 	public static readonly ConfigEntry<bool> EnableCrosshair = new(ConfigSide.ClientOnly, true, "Interface");
 	public static readonly ConfigEntry<bool> EnableCrosshairAnimations = new(ConfigSide.ClientOnly, true, "Interface");
+	public static readonly RangeConfigEntry<float> CrosshairScale = new(ConfigSide.ClientOnly, 1f, (1.0f, 2.0f), "Interface");
 
 	private static bool lastMouseText;
 	private static bool lastMouseInterface;
@@ -215,7 +225,12 @@ public sealed class CrosshairSystem : ModSystem
 			return true;
 		}
 
-		int offset = (int)Math.Ceiling(renderData.Offset);
+		// Force point filtering.
+		Main.spriteBatch.End();
+		Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.PointClamp, null, null, null, Main.UIScaleMatrix);
+
+		int offset = (int)Math.Ceiling(renderData.Offset) + 1;
+		float scale = MathF.Max(1f, 1f / Main.UIScale) * CrosshairScale;
 
 		for (int i = 0; i < 2; i++) {
 			bool inner = i == 0;
@@ -225,10 +240,15 @@ public sealed class CrosshairSystem : ModSystem
 					int xDir = x == 0 ? -1 : 1;
 					int yDir = y == 0 ? -1 : 1;
 
-					Vector2 vecOffset = new Vector2(offset * xDir, offset * yDir).RotatedBy(renderData.Rotation);
+					Vector2 vecOffset = new Vector2(offset * xDir, offset * yDir).RotatedBy(renderData.Rotation) * scale;
 					var frame = crosshairBaseFrame.With((byte)(x + (inner ? 0 : 2)), y);
 					var srcRect = frame.GetSourceRectangle(texture);
-					var dstRect = new Rectangle(Main.mouseX + (int)vecOffset.X, Main.mouseY + (int)vecOffset.Y, srcRect.Width, srcRect.Height);
+					var dstRect = new Rectangle(
+						Main.mouseX + (int)vecOffset.X,
+						Main.mouseY + (int)vecOffset.Y,
+						(int)(srcRect.Width * scale),
+						(int)(srcRect.Height * scale)
+					);
 					var origin = new Vector2((1 - x) * srcRect.Width, (1 - y) * srcRect.Height);
 					var color = inner ? renderData.InnerColor : renderData.OuterColor;
 
