@@ -48,6 +48,9 @@ public struct WeightedValue<T>(T Value, double Weight)
 
 	public readonly T Total()
 	{
+		if (TotalWeight == 0.0)
+			return TotalValue;
+
 		return FnTable.DivF(TotalValue, Math.Max(MinWeight, TotalWeight));
 	}
 }
