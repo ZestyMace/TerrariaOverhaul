@@ -38,7 +38,7 @@ public sealed class PlayerGore : ModPlayer
 	public static readonly ConfigEntry<bool> FocusCameraOnPlayerDeath = new(ConfigSide.ClientOnly, true, "Camera");
 
 	private static DrawnPart currentlyDrawnPart;
-	private static List<(int Index, float Weight, Vector2 Position)>? lastDeathGore;
+	private static List<(int Index, int Type, float Weight, Vector2 Position)>? lastDeathGore;
 
 	public override void Load()
 	{
@@ -77,8 +77,10 @@ public sealed class PlayerGore : ModPlayer
 		if (lastDeathGore is { Count: > 0 } list) {
 			var weightedPosition = new WeightedValue<Vector2D>(default, 0.0);
 			foreach (ref var gore in CollectionsMarshal.AsSpan(list)) {
-				if (Main.gore[gore.Index].active)
-					gore.Position = Main.gore[gore.Index].AABBRectangle.Center();
+				if (gore.Index > 0 && Main.gore[gore.Index] is { active: true } inst && gore.Type == inst.type)
+					gore.Position = inst.AABBRectangle.Center();
+				else
+					gore.Index = -1;
 
 				weightedPosition.Add(gore.Position.ToF64(), gore.Weight);
 			}
@@ -165,7 +167,7 @@ public sealed class PlayerGore : ModPlayer
 			}
 
 			if (player.IsLocal()) {
-				lastDeathGore!.Add((Index: goreIndex, Weight: curioWeight, Position: position));
+				lastDeathGore!.Add((goreIndex, DynamicGore.Type, curioWeight, position));
 			}
 		}
 
