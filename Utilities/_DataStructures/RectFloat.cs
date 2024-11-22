@@ -89,7 +89,7 @@ public struct RectFloat
 		=> $"[X:{X} Y:{Y} Width:{Width} Height:{Height}]";
 
 	public readonly bool ContainsExclusive(Vector2 point) => point.X > X && point.X < X + Width && point.Y > Y && point.Y < Y + Height;
-	public readonly bool ContainsInclusive(Vector2 point) => point.X >= X && point.Y <= X + Width && point.Y >= Y && point.Y <= Y + Height;
+	public readonly bool ContainsInclusive(Vector2 point) => point.X >= X && point.X <= X + Width && point.Y >= Y && point.Y <= Y + Height;
 
 	public readonly bool IntersectsExclusive(Rectangle other) => other.Left < Right && Left < other.Right && other.Top < Bottom && Top < other.Bottom;
 	public readonly bool IntersectsExclusive(RectFloat other) => other.Left < Right && Left < other.Right && other.Top < Bottom && Top < other.Bottom;
