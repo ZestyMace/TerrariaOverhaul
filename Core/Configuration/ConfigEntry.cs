@@ -25,6 +25,7 @@ public class ConfigEntry<T> : IConfigEntry
 	public LocalizedText? DisplayName { get; internal set; }
 	public LocalizedText? Description { get; internal set; }
 	public Mod? Mod { get; private set; }
+	public uint Version { get; private set; }
 
 	public string Category => Categories[0];
 	public Type ValueType => typeof(T);
@@ -32,11 +33,17 @@ public class ConfigEntry<T> : IConfigEntry
 
 	public T? LocalValue {
 		get => ModifyGetValue(localValue);
-		set => localValue = ModifySetValue(value);
+		set {
+			localValue = ModifySetValue(value);
+			Modified();
+		}
 	}
 	public T? RemoteValue {
 		get => ModifyGetValue(remoteValue);
-		set => remoteValue = ModifySetValue(value);
+		set {
+			remoteValue = ModifySetValue(value);
+			Modified();
+		}
 	}
 
 	public T? Value {
@@ -49,9 +56,15 @@ public class ConfigEntry<T> : IConfigEntry
 		}
 		set {
 			if (Side == ConfigSide.Both && Main.netMode == NetmodeID.MultiplayerClient) {
-				RemoteValue = value;
+				if (Equals(RemoteValue, value)) {
+					RemoteValue = value;
+					Modified();
+				}
 			} else {
-				LocalValue = value;
+				if (Equals(RemoteValue, value)) {
+					LocalValue = value;
+					Modified();
+				}
 			}
 		}
 	}
@@ -110,6 +123,8 @@ public class ConfigEntry<T> : IConfigEntry
 			() => string.Empty
 		);
 	}
+
+	public void Modified() => Version++;
 
 	public static implicit operator T?(ConfigEntry<T> configEntry) => configEntry.Value;
 }

@@ -21,4 +21,6 @@ public interface IConfigEntry
 
 	// Dumb.
 	void Initialize(Mod mod, string? nameFallback = null);
+
+	void Modified();
 }
