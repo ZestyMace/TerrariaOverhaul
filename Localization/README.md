@@ -9,46 +9,46 @@
 
 ## de-DE
 - **Status:** ⚠️ Incomplete!
-- **Completion:** ***24.2%***
-- **Translated:** `80` out of `331` (`251` missing!)
+- **Completion:** ***23.9%***
+- **Translated:** `80` out of `335` (`255` missing!)
 
 ## en-US
 - **Status:** ✅ Full!
 - **Completion:** ***100.0%***
-- **Translated:** `331` out of `331` (`0` missing!)
+- **Translated:** `335` out of `335` (`0` missing!)
 
 ## es-ES
 - **Status:** ⚠️ Incomplete!
-- **Completion:** ***51.1%***
-- **Translated:** `169` out of `331` (`162` missing!)
+- **Completion:** ***50.4%***
+- **Translated:** `169` out of `335` (`166` missing!)
 
 ## fr-FR
 - **Status:** ⚠️ Incomplete!
-- **Completion:** ***51.1%***
-- **Translated:** `169` out of `331` (`162` missing!)
+- **Completion:** ***50.4%***
+- **Translated:** `169` out of `335` (`166` missing!)
 
 ## it-IT
 - **Status:** ⚠️ Incomplete!
-- **Completion:** ***25.4%***
-- **Translated:** `84` out of `331` (`247` missing!)
+- **Completion:** ***25.1%***
+- **Translated:** `84` out of `335` (`251` missing!)
 
 ## pl-PL
 - **Status:** ⚠️ Incomplete!
-- **Completion:** ***51.1%***
-- **Translated:** `169` out of `331` (`162` missing!)
+- **Completion:** ***50.4%***
+- **Translated:** `169` out of `335` (`166` missing!)
 
 ## pt-BR
 - **Status:** ⚠️ Incomplete!
-- **Completion:** ***24.2%***
-- **Translated:** `80` out of `331` (`251` missing!)
+- **Completion:** ***23.9%***
+- **Translated:** `80` out of `335` (`255` missing!)
 
 ## ru-RU
 - **Status:** ⚠️ Incomplete!
-- **Completion:** ***25.4%***
-- **Translated:** `84` out of `331` (`247` missing!)
+- **Completion:** ***25.1%***
+- **Translated:** `84` out of `335` (`251` missing!)
 
 ## zh-Hans
 - **Status:** ⚠️ Incomplete!
-- **Completion:** ***88.5%***
-- **Translated:** `293` out of `331` (`38` missing!)
+- **Completion:** ***87.5%***
+- **Translated:** `293` out of `335` (`42` missing!)
 

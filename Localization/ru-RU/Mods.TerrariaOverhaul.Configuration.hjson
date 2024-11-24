@@ -587,6 +587,16 @@ Music: {
 			''' */
 	}
 
+	AlwaysRestartBossMusicTracks: {
+		// DisplayName: "Always Restart Boss Music Tracks"
+		// Description: "If enabled together with Music Playback Position Preservation, boss music tracks will not be affected by it."
+	}
+
+	AlwaysRestartedMusicTracks: {
+		// DisplayName: "Always Restarted Music Tracks"
+		// Description: "A list of music tracks to exclude from Music Playback Position Preservation."
+	}
+
 	EnableBossDeathMusicStop: {
 		// DisplayName: "Enable Boss Death Music Stop"
 		// Description: "When enabled, music will be temporarily stopped whenever a boss is killed. For a dramatic effect."
