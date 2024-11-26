@@ -67,6 +67,7 @@
 - The crosshair will no longer shrink when UI scale is set to less than 100%. Additionally, a crosshair scale option has been added (x1.0 to x2.0 range) to account for high resolution screen users' needs. Finally, the crosshair will also now render using nearest-neighbour texture filtering.
 - `Critical Judgement`'s guaranteed critical strike will no longer be triggered by summons' attacks.
 - Music Playback Position Preservation no longer affects boss tracks by default. Two options were added, a toggle for that behavior, and a list for music tracks to exclude manually. The latter however can only be modified through `Config.toml` for now.
+- Dodgerolls now produce slight screen shake effects.
 ### Configuration
 - Existing features received the following new options:
   **Awareness:** `EnableHealthPickupSounds`, `EnableManaPickupSounds`.
