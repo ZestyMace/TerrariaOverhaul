@@ -68,6 +68,7 @@
 - `Critical Judgement`'s guaranteed critical strike will no longer be triggered by summons' attacks.
 - Music Playback Position Preservation no longer affects boss tracks by default. Two options were added, a toggle for that behavior, and a list for music tracks to exclude manually. The latter however can only be modified through `Config.toml` for now.
 - Dodgerolls now produce slight screen shake effects.
+- Critical damage combat text will now be slightly more purple in color.
 ### Configuration
 - Existing features received the following new options:
   **Awareness:** `EnableHealthPickupSounds`, `EnableManaPickupSounds`.
