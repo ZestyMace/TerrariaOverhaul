@@ -3,6 +3,7 @@ bin/
 obj/
 Old/
 BuildTools/Libraries/TerrariaOverhaul.BuildTools*
+**/!Unused/
 *.ignored
 *.user
 changelog.txt

@@ -7,6 +7,7 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using TerrariaOverhaul.Common.Camera;
 using TerrariaOverhaul.Common.Damage;
 using TerrariaOverhaul.Common.EntityEffects;
 using TerrariaOverhaul.Common.Hooks.Items;
@@ -274,6 +275,11 @@ public sealed class PlayerDodgerolls : ModPlayer
 
 		if (!Main.dedServ) {
 			SoundEngine.PlaySound(DodgerollSound, Player.Center);
+
+			// Slight screenshake
+			if (Player.IsLocal()) {
+				ScreenShakeSystem.New(new ScreenShake(0.04f, 0.10f) { UniqueId = "Dodgeroll" }, null);
+			}
 		}
 
 		Player.StopGrappling();

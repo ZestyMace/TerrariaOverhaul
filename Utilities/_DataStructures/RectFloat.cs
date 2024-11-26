@@ -7,95 +7,94 @@ public struct RectFloat
 	public static readonly RectFloat Default = new(0f, 0f, 1f, 1f);
 	public static readonly RectFloat Empty = new(0f, 0f, 0f, 0f);
 
-	public float x;
-	public float y;
-	public float width;
-	public float height;
+	public float X;
+	public float Y;
+	public float Width;
+	public float Height;
 
 	public float Left {
-		get => x;
-		set => x = value;
+		readonly get => X;
+		set => X = value;
 	}
 	public float Top {
-		get => y;
-		set => y = value;
+		readonly get => Y;
+		set => Y = value;
 	}
 	public float Right {
-		get => x + width;
-		set => x = value - width;
+		readonly get => X + Width;
+		set => X = value - Width;
 	}
 	public float Bottom {
-		get => y + height;
-		set => y = value - height;
+		readonly get => Y + Height;
+		set => Y = value - Height;
 	}
 	public Vector2 TopLeft {
-		get => new(Left, Top);
+		readonly get => new(Left, Top);
 		set {
 			Left = value.X;
 			Top = value.Y;
 		}
 	}
 	public Vector2 TopRight {
-		get => new(Right, Top);
+		readonly get => new(Right, Top);
 		set {
 			Right = value.X;
 			Top = value.Y;
 		}
 	}
 	public Vector2 BottomLeft {
-		get => new(Left, Bottom);
+		readonly get => new(Left, Bottom);
 		set {
 			Left = value.X;
 			Bottom = value.Y;
 		}
 	}
 	public Vector2 BottomRight {
-		get => new(Right, Bottom);
+		readonly get => new(Right, Bottom);
 		set {
 			Right = value.X;
 			Bottom = value.Y;
 		}
 	}
 	public Vector2 Position {
-		get => TopLeft;
+		readonly get => TopLeft;
 		set => TopLeft = value;
 	}
 	public Vector2 Size {
-		get => new(width, height);
+		readonly get => new(Width, Height);
 		set {
-			width = value.X;
-			height = value.Y;
+			Width = value.X;
+			Height = value.Y;
 		}
 	}
 	public Vector4 Points {
-		get => new(x, y, x + width, y + height);
+		readonly get => new(X, Y, X + Width, Y + Height);
 		set {
-			x = value.X;
-			y = value.Y;
-			width = value.Z - x;
-			height = value.W - y;
+			X = value.X;
+			Y = value.Y;
+			Width = value.Z - X;
+			Height = value.W - Y;
 		}
 	}
 
 	public RectFloat(float x, float y, float width, float height)
 	{
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
+		X = x;
+		Y = y;
+		Width = width;
+		Height = height;
 	}
 
-	public override string ToString()
-		=> $"[X:{x} Y:{y} Width:{width} Height:{height}]";
+	public readonly override string ToString()
+		=> $"[X:{X} Y:{Y} Width:{Width} Height:{Height}]";
 
-	public bool Contains(Vector2 point, bool inclusive = false)
-	{
-		if (inclusive) {
-			return point.X > x && point.X < x + width && point.Y > y && point.Y < y + height;
-		}
+	public readonly bool ContainsExclusive(Vector2 point) => point.X > X && point.X < X + Width && point.Y > Y && point.Y < Y + Height;
+	public readonly bool ContainsInclusive(Vector2 point) => point.X >= X && point.X <= X + Width && point.Y >= Y && point.Y <= Y + Height;
 
-		return point.X >= x && point.Y <= x + width && point.Y >= y && point.Y <= y + height;
-	}
+	public readonly bool IntersectsExclusive(Rectangle other) => other.Left < Right && Left < other.Right && other.Top < Bottom && Top < other.Bottom;
+	public readonly bool IntersectsExclusive(RectFloat other) => other.Left < Right && Left < other.Right && other.Top < Bottom && Top < other.Bottom;
+	public readonly bool IntersectsInclusive(Rectangle other) => other.Left <= Right && Left <= other.Right && other.Top <= Bottom && Top <= other.Bottom;
+	public readonly bool IntersectsInclusive(RectFloat other) => other.Left <= Right && Left <= other.Right && other.Top <= Bottom && Top <= other.Bottom;
 
 	public static RectFloat FromPoints(Vector4 points)
 		=> FromPoints(points.X, points.Y, points.Z, points.W);
@@ -104,17 +103,29 @@ public struct RectFloat
 	{
 		RectFloat rect;
 
-		rect.x = x1;
-		rect.y = y1;
-		rect.width = x2 - x1;
-		rect.height = y2 - y1;
+		rect.X = x1;
+		rect.Y = y1;
+		rect.Width = x2 - x1;
+		rect.Height = y2 - y1;
 
 		return rect;
 	}
+
+	public static RectFloat operator *(RectFloat rectF, float mul)
+		=> new(rectF.X * mul, rectF.Y * mul, rectF.Width * mul, rectF.Height * mul);
+
+	public static RectFloat operator /(RectFloat rectF, float div)
+		=> new(rectF.X / div, rectF.Y / div, rectF.Width / div, rectF.Height / div);
+
+	public static RectFloat operator *(RectFloat rectF, Vector2 mul)
+		=> new(rectF.X * mul.X, rectF.Y * mul.Y, rectF.Width * mul.X, rectF.Height * mul.Y);
+
+	public static RectFloat operator /(RectFloat rectF, Vector2 div)
+		=> new(rectF.X / div.X, rectF.Y / div.Y, rectF.Width / div.X, rectF.Height / div.Y);
 
 	public static explicit operator RectFloat(Rectangle rectI)
 		=> new(rectI.X, rectI.Y, rectI.Width, rectI.Height);
 
 	public static explicit operator Rectangle(RectFloat rectF)
-		=> new((int)rectF.x, (int)rectF.y, (int)rectF.width, (int)rectF.height);
+		=> new((int)rectF.X, (int)rectF.Y, (int)rectF.Width, (int)rectF.Height);
 }

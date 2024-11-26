@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Reflection;
+using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -10,25 +10,20 @@ using TerrariaOverhaul.Utilities;
 
 namespace TerrariaOverhaul.Core.Tiles;
 
+[Autoload(Side = ModSide.Client)]
 public sealed class TileSnapshotSystem : ModSystem
 {
-	private delegate void DrawSingleTileDelegate(TileDrawInfo drawData, bool solidLayer, int waterStyleOverride, Vector2 screenPosition, Vector2 screenOffset, int tileX, int tileY);
-	private delegate void DrawSpecialTilesLegacyDelegate(Vector2 screenPosition, Vector2 offset);
-
-	private static DrawSingleTileDelegate? drawSingleTile;
-	private static DrawSpecialTilesLegacyDelegate? drawSpecialTilesLegacy;
+	private static SpriteBatch? spriteBatch;
 
 	public override void Load()
 	{
-		drawSingleTile = typeof(TileDrawing)
-			.GetMethod("DrawSingleTile", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)?
-			.CreateDelegate<DrawSingleTileDelegate>(Main.instance.TilesRenderer)
-			?? throw new InvalidOperationException("Unable to acquire tile drawing method delegate.");
 
-		drawSpecialTilesLegacy = typeof(TileDrawing)
-			.GetMethod("DrawSpecialTilesLegacy", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)?
-			.CreateDelegate<DrawSpecialTilesLegacyDelegate>(Main.instance.TilesRenderer)
-			?? throw new InvalidOperationException("Unable to acquire special tile drawing method delegate.");
+	}
+
+	public override void Unload()
+	{
+		spriteBatch?.Dispose();
+		spriteBatch = null;
 	}
 
 	public static RenderTarget2D CreateSpecificTilesSnapshot(Vector2Int sizeInTiles, Vector2Int baseTilePosition, ReadOnlySpan<Vector2Int> tilePositions)
@@ -57,6 +52,7 @@ public sealed class TileSnapshotSystem : ModSystem
 	{
 		Main.instance.ClearCachedTileDraws();
 
+		var tileRenderer = Main.instance.TilesRenderer;
 		var tileDrawData = new TileDrawInfo();
 		var screenOffset = Vector2.Zero;
 		var originalZoomFactor = Main.GameViewMatrix.Zoom;
@@ -70,27 +66,34 @@ public sealed class TileSnapshotSystem : ModSystem
 		// This hack forces Lighting.GetColor to yield with Color.White
 		Main.gameMenu = true;
 
-		typeof(TileDrawing)
-			.GetMethod("ClearLegacyCachedDraws", BindingFlags.Instance | BindingFlags.NonPublic)!
-			.Invoke(Main.instance.TilesRenderer, null);
+		ClearLegacyCachedDraws(tileRenderer);
 
-		Main.instance.TilesRenderer.PreDrawTiles(solidLayer: false, forRenderTargets: true, intoRenderTargets: true);
+		tileRenderer.PreDrawTiles(solidLayer: false, forRenderTargets: true, intoRenderTargets: true);
 		Main.spriteBatch.Begin();
 		
 		for (int i = 0; i < tilePositions.Length; i++) {
 			var tilePosition = tilePositions[i];
 			var tile = Main.tile[tilePosition.X, tilePosition.Y];
 
-			drawSingleTile!(tileDrawData, true, -1, Main.screenPosition, screenOffset, tilePosition.X, tilePosition.Y);
+			DrawSingleTile(tileRenderer, tileDrawData, true, -1, Main.screenPosition, screenOffset, tilePosition.X, tilePosition.Y);
 		}
 
-		drawSpecialTilesLegacy!(Main.screenPosition, screenOffset);
+		DrawSpecialTilesLegacy(tileRenderer, Main.screenPosition, screenOffset);
 
 		Main.spriteBatch.End();
-		Main.instance.TilesRenderer.PostDrawTiles(solidLayer: false, forRenderTargets: false, intoRenderTargets: false);
+		tileRenderer.PostDrawTiles(solidLayer: false, forRenderTargets: false, intoRenderTargets: false);
 
 		Main.gameMenu = originalGameMenu;
 		Main.GameViewMatrix.Zoom = originalZoomFactor;
 		Main.screenPosition = originalScreenPosition;
 	}
+
+	[UnsafeAccessor(UnsafeAccessorKind.Method)]
+	private static extern void DrawSingleTile(TileDrawing instance, TileDrawInfo drawData, bool solidLayer, int waterStyleOverride, Vector2 screenPosition, Vector2 screenOffset, int tileX, int tileY);
+
+	[UnsafeAccessor(UnsafeAccessorKind.Method)]
+	private static extern void DrawSpecialTilesLegacy(TileDrawing instance, Vector2 screenPosition, Vector2 offSet);
+
+	[UnsafeAccessor(UnsafeAccessorKind.Method)]
+	private static extern void ClearLegacyCachedDraws(TileDrawing instance);
 }

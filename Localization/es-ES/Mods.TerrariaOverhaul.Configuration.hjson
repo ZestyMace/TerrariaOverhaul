@@ -271,6 +271,11 @@ Bosses: {
 		// DisplayName: "Enable Eater Of Worlds Effects"
 		// Description: "When enabled, The Eater of Worlds boss will receive new audiovisual effects."
 	}
+
+	EnableEyeOfCthulhuEffects: {
+		// DisplayName: "Enable Eye Of Cthulhu Effects"
+		// Description: "When enabled, The Eye of Cthulhu boss will receive new audiovisual effects."
+	}
 }
 
 Camera: {
@@ -299,6 +304,41 @@ Camera: {
 		DisplayName: "Fuerza de vibración de la pantalla"
 		Description: "Controla la intensidad de los efectos de vibración de la pantalla. Ajústalo a cero para desactivar por completo las sacudidas de pantalla causadas por terremotos."
 	}
+
+	FocusCameraOnBosses: {
+		// DisplayName: "Focus Camera On Bosses"
+		// Description: "If enabled, the camera will subtly hint towards the nearest alive boss."
+	}
+
+	FocusCameraOnBossEvents: {
+		// DisplayName: "Focus Camera On Boss Events"
+		// Description: "If enabled, the camera will focus at boss entrances, transformations, and deaths."
+	}
+
+	FocusCameraOnDialogues: {
+		// DisplayName: "Focus Camera On Dialogues"
+		// Description: "If enabled, the camera will zoom-in and focus on the NPC when the player speaks with one'."
+	}
+
+	FocusCameraOnPlayerDeath: {
+		// DisplayName: "Focus Camera On Player Death"
+		// Description: "If enabled, the camera will zoom-in and focus on the local player's remains until they respawn."
+	}
+
+	FocusCameraOnRareEnemies: {
+		// DisplayName: "Focus Camera On Rare Enemies"
+		// Description: "If enabled, the camera will subtly hint towards the nearest rare enemy."
+	}
+
+	FocusCameraOnRareFriendlies: {
+		// DisplayName: "Focus Camera On Rare Friendlies"
+		// Description: "If enabled, the camera will subtly hint towards the nearest bound NPC or rare critter."
+	}
+
+	FocusCameraOnRarePickups: {
+		// DisplayName: "Focus Camera On Rare Loot"
+		// Description: "If enabled, the camera will subtly hint towards the nearest rare loot."
+	}
 }
 
 Enemies: {
@@ -312,7 +352,7 @@ Enemies: {
 
 	EnableNormalEnemyEffects: {
 		// DisplayName: "Enable Normal Enemy Effects"
-		// Description: ""
+		// Description: "When enabled, various common enemies will receive new audiovisual effects."
 	}
 }
 
@@ -387,6 +427,11 @@ Interface: {
 	EnableCrosshairAnimations: {
 		// DisplayName: "Enable Crosshair Animations"
 		// Description: "Whether the crosshair should animate in reaction to weapons firing and going on cooldowns."
+	}
+
+	CrosshairScale: {
+		// DisplayName: "Crosshair Scale"
+		// Description: "Controls the crosshair's size, allowing you to make it larger if you want."
 	}
 }
 
@@ -542,9 +587,24 @@ Music: {
 			'''
 	}
 
+	AlwaysRestartBossMusicTracks: {
+		// DisplayName: "Always Restart Boss Music Tracks"
+		// Description: "If enabled together with Music Playback Position Preservation, boss music tracks will not be affected by it."
+	}
+
+	AlwaysRestartedMusicTracks: {
+		// DisplayName: "Always Restarted Music Tracks"
+		// Description: "A list of music tracks to exclude from Music Playback Position Preservation."
+	}
+
 	EnableBossDeathMusicStop: {
 		// DisplayName: "Enable Boss Death Music Stop"
 		// Description: "When enabled, music will be temporarily stopped whenever a boss is killed. For a dramatic effect."
+	}
+
+	PlayBossDeathTransitionCue: {
+		// DisplayName: "Play Boss Death Transition Cue"
+		// Description: "If enabled, a cinematic sound will play when the last alive boss is defeated."
 	}
 }
 

@@ -9,6 +9,9 @@ namespace TerrariaOverhaul.Utilities;
 
 public static class SpriteBatchExtensions
 {
+	[UnsafeAccessor(UnsafeAccessorKind.Field, Name = "samplerState")]
+	public extern static ref SamplerState GetSamplerState(this SpriteBatch sb);
+
 	[MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
 	public static void DrawLine(this SpriteBatch sb, Vector2 start, Vector2 end, Color? color = null, int width = 1, Texture2D? texture = null)
 	{

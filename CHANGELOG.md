@@ -33,15 +33,26 @@
 # Work In Progress
 
 ### Additions
+- Implemented a 'camera curio system'. Subtly shifting and zooming on important areas, the system will be used to hint the player's attention towards important objects and events, increasing cinematic feel on top of all.
+- The following camera curios have been implemented:
+	- **NPCs in dialogues**;
+	- **Boss tracking** (subtle);
+	- **Boss deaths**;
+	- **Local player's remains**;
+	- **Rare enemies** (subtle);
+	- **Rare critters and NPCs** (subtle);
+	- **Boss bags and rare pickups**;
+- `The Eye of Cthulhu` has received an audiovisual overhaul, featuring new sound effects and transformation camera effects.
 - **`The Destroyer`** has received a full audiovisual overhaul, featuring a new massive sprite, debris effect system, movement & digging audio, as well as robotic screeches meant to intimidate and warn players of their impending doom. This comes with two options, one for the sprite and another for the whole set of effects.
 - **`The Eater of Worlds`** has received an audiovisual overhaul, featuring a debris effect system, disgusting movement & digging audio, as well as terrifying attack and pain screeches that make it look like the victim during its battle. Who knew worms could sing?
+- When the last alive boss is killed, a cinematic transition cue is now played in addition to the aforementioned camera focus.
 - Crimson and Corruption enemies now have new hit and death audio.
 - Leaves particles will now be baked as decals whenever they hit the ground.
 ### Difficulty
 - Various changes to compensate all the extra power given to the player by the mod.
 - Enemy health multipliers across all difficulties were increased from `x2.0` to `x2.25`.
 - Enemy defense multipliers across all difficulties were increased from `x1.0` to `x1.25`.
-- Mechanics and enemies in all Overhaul difficulty levels now always behave like it's Master Mode, getting rid of ableistic content & feature walling, and fixing hidden balance inconsistencies. This means that Expert-level behaviors and loot will now be found even on `I'm Too Young To Mine`. However, Boss Relics and other Master-mode exclusive rewards remain exclusive to `I Am Cthulhu Incarnate`, as they are purely visual and do not affect gameplay.
+- Mechanics and enemies in all Overhaul difficulty levels now always behave like it's Master Mode, getting rid of arguably ableistic content & feature walling, and fixing hidden balance inconsistencies. This means that Expert-level behaviors and loot will now be found even on `I'm Too Young To Mine`. However, Boss Relics and other Master-mode exclusive rewards remain exclusive to `I Am Cthulhu Incarnate`, as they are purely visual and do not affect gameplay.
   The `EnableConsistentDifficulty` option has been added in case this leads to mod compatibility issues.
 ### Changes
 - Melee weapon swing velocity and miniguns' velocity recoil are now both scaled by the player's current gravity intensity. This resolves [#204](https://github.com/Mirsario/TerrariaOverhaul/issues/204) (Featherfall weapon combos allow infinite ascension).
@@ -52,14 +63,24 @@
 - Removed all unused and functionless legacy content from compilation: `Charcoal`, `Calendars`, `Gramophones`, `Stone Axes`, `Stone Pickaxes`, `Ash Clots`, `Walking Ashes`. These bits will be reintroduced when required.
 - Wall flips and wall rolls were made slightly more reliable, with their code rewritten.
 - Grappling hooks' code was made more data-driven, with some vanilla hook range values corrected.
+- Boss death music mute effect is now only triggered at the death of the last alive boss.
+- The crosshair will no longer shrink when UI scale is set to less than 100%. Additionally, a crosshair scale option has been added (x1.0 to x2.0 range) to account for high resolution screen users' needs. Finally, the crosshair will also now render using nearest-neighbour texture filtering.
+- `Critical Judgement`'s guaranteed critical strike will no longer be triggered by summons' attacks.
+- Music Playback Position Preservation no longer affects boss tracks by default. Two options were added, a toggle for that behavior, and a list for music tracks to exclude manually. The latter however can only be modified through `Config.toml` for now.
+- Dodgerolls now produce slight screen shake effects.
+- Critical damage combat text will now be slightly more purple in color.
 ### Configuration
 - Existing features received the following new options:
   **Awareness:** `EnableHealthPickupSounds`, `EnableManaPickupSounds`.
   **Guns:** `EnableMinigunDynamicFirerate`, `EnableStarCannonDynamicFirerate`.
+  **Interface:** `CrosshairScale`, `ForceInterfacePointFiltering`.
+  **Music:** `AlwaysRestartBossMusicTracks`, `AlwaysRestartedMusicTracks`.
   **Visuals:** `EnableEnemyFlinchingEffects`.
 - New features were introduced with the following options:
   **Balance:** `EnableConsistentDifficulty`.
-  **Bosses:** `EnableDestroyerEffects`, `EnableDestroyerMakeover`, `EnableEaterOfWorldsEffects`.
+  **Bosses:** `EnableDestroyerEffects`, `EnableDestroyerMakeover`, `EnableEaterOfWorldsEffects`, `EnableEyeOfCthulhuEffects`.
+  **Camera:** `FocusCameraOnBosses`, `FocusCameraOnBossEvents`,  `FocusCameraOnDialogues`, `FocusCameraOnPlayerDeath`, `FocusCameraOnRareEnemies`, `FocusCameraOnRareFriendlies`, `FocusCameraOnRarePickups`.
+  **Music:** `PlayBossDeathTransitionCue`.
 - The `CameraSmoothness` option's effects will now closer match players' percentage scaling expectations.
 ### Localization
 - Chinese (`59.1%` -> `100%`) - PRs [#232](https://github.com/Mirsario/TerrariaOverhaul/pull/232) & [#233](https://github.com/Mirsario/TerrariaOverhaul/pull/233) by [**xiaoyvyv**](https://github.com/xiaoyvyv) & [**Cyrillya**](https://github.com/Cyrillya).
@@ -78,6 +99,9 @@
 - Fixed NPCs being tilted and/or shaking in the game's credits cutscene, especially if a world hasn't been loaded prior.
 - Fixed the `Always Show Aimable Weapons` feature unintentionally being active when sleeping in a bed.
 - Fixed weapon aiming animations not taking the player's full body rotation into account.
+- Fixed crosshair animations stacking up when user interface is turned off via F11.
+### Performance
+- Improved performance of falling tree texture generation.
 
 # 5.0 BETA 14
 

@@ -1,4 +1,5 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace TerrariaOverhaul.Common.CombatTexts;
@@ -16,6 +17,7 @@ public sealed class CriticalStrikeTextImprovements : ModSystem
 			CombatTextSystem.AddFilter(1, text => {
 				if (uint.TryParse(text.text, out _) && !text.text.Contains('!')) {
 					text.text += "!";
+					text.color = Color.Lerp(text.color, Color.HotPink, 0.25f);
 				}
 			});
 		}

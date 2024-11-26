@@ -20,8 +20,6 @@ dotnet_diagnostic.CS1998.severity = silent
 dotnet_diagnostic.CA1822.severity = none
 # CA2211: Non-constant fields should not be visible
 dotnet_diagnostic.CA2211.severity = none
-# IDE0011: Add braces to statement
-dotnet_diagnostic.IDE0011.severity = warning # Always ask for curly braces everywhere.
 # IDE0028: Collection initialization can be simplified
 # IDE0300: Collection initialization can be simplified
 # IDE0301: Collection initialization can be simplified
@@ -30,6 +28,8 @@ dotnet_diagnostic.IDE0300.severity = none
 dotnet_diagnostic.IDE0301.severity = none
 # IDE0290: Use primary constructor
 dotnet_diagnostic.IDE0290.severity = none
+# IDE0042: Deconstruct variable declaration
+dotnet_diagnostic.IDE0042.severity = none
 
 #### Core EditorConfig Options ####
 
@@ -129,7 +129,7 @@ dotnet_diagnostic.IDE0290.severity = none
 
 # Expression-level preferences
 	csharp_prefer_simple_default_expression = true:suggestion
-	csharp_style_deconstructed_variable_declaration = true:suggestion
+	csharp_style_deconstructed_variable_declaration = true:none
 	csharp_style_pattern_local_over_anonymous_function = true:suggestion
 	csharp_style_prefer_index_operator = false:suggestion
 	csharp_style_prefer_range_operator = false:suggestion
@@ -194,17 +194,17 @@ dotnet_diagnostic.IDE0290.severity = none
 
 # Naming rules
 
-	dotnet_naming_rule.interface_should_be_begins_with_i.severity = suggestion
+dotnet_naming_rule.interface_should_be_begins_with_i.severity = suggestion
 	dotnet_naming_rule.interface_should_be_begins_with_i.symbols = interface
-	dotnet_naming_rule.interface_should_be_begins_with_i.style = begins_with_i
+dotnet_naming_rule.interface_should_be_begins_with_i.style = begins_with_i
 	
-	dotnet_naming_rule.types_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.types_should_be_pascal_case.severity = suggestion
 	dotnet_naming_rule.types_should_be_pascal_case.symbols = types
-	dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.types_should_be_pascal_case.style = pascal_case
 	
-	dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = suggestion
+dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = suggestion
 	dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
-	dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
+dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
 
 # Symbol specifications
 
@@ -231,4 +231,4 @@ dotnet_diagnostic.IDE0290.severity = none
 	dotnet_naming_style.begins_with_i.required_suffix =
 	dotnet_naming_style.begins_with_i.word_separator =
 	dotnet_naming_style.begins_with_i.capitalization = pascal_case
-
+	

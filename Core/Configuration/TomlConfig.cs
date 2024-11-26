@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
 using Terraria.ModLoader;
 using Tomlyn;
 using Tomlyn.Model;
@@ -122,7 +125,7 @@ public static class TomlConfig
 					using var _ = new Logging.QuietExceptionHandle();
 
 					try {
-						value = Convert.ChangeType(entryPair.Value, entry.ValueType);
+						value = ConvertValue(entryPair.Value, entry.ValueType);
 					}
 					catch { }
 
@@ -142,19 +145,51 @@ public static class TomlConfig
 		}
 	}
 
+	private static object? ConvertValue(object? value, Type valueType)
+	{
+		if (value is TomlArray tomlArray) {
+			if (valueType.IsArray) {
+				var array = Array.CreateInstance(valueType.GetElementType()!, tomlArray.Count);
+				for (int i = 0; i < tomlArray.Count; i++) { array.SetValue(tomlArray[i], i); }
+				return array;
+			}
+			
+			if (typeof(IList).IsAssignableFrom(valueType) && valueType.GetConstructor(Type.EmptyTypes) is { } ctor) {
+				var list = (IList)ctor.Invoke([]);
+				foreach (object? item in tomlArray) { list.Add(item); }
+				return list;
+			}
+			
+			throw new InvalidOperationException($"Unable to handle array type: '{valueType.Name}'.");
+		}
+
+		return Convert.ChangeType(value, valueType);
+	}
+
 	// If Tomlyn already has something for this - let me know.
 	private static ValueSyntax ObjectToSyntax(object value)
 	{
-		return value switch {
-			bool
-				=> new BooleanValueSyntax(Convert.ToBoolean(value)),
-			byte or sbyte or ushort or short or uint or int or ulong or long
-				=> new IntegerValueSyntax(Convert.ToInt64(value)),
-			float or double
-				=> new FloatValueSyntax(Convert.ToDouble(value)),
-			string
-				=> new StringValueSyntax(Convert.ToString(value)!),
-			_ => throw new NotImplementedException(),
+		switch (value) {
+			case bool:
+				return new BooleanValueSyntax(Convert.ToBoolean(value));
+			case byte or sbyte or ushort or short or uint or int or ulong or long:
+				return new IntegerValueSyntax(Convert.ToInt64(value));
+			case float or double:
+				return new FloatValueSyntax(Convert.ToDouble(value));
+			case string:
+				return new StringValueSyntax(Convert.ToString(value)!);
+			default: {
+				if (value is IEnumerable enumerable) {
+					var arraySyntax = new ArraySyntax(Array.Empty<int>()); // () is broken!
+
+					foreach (object item in enumerable)
+						arraySyntax.Items.Add(new ArrayItemSyntax { Value = ObjectToSyntax(item) });
+
+					return arraySyntax;
+				}
+
+				throw new NotImplementedException();
+			}
 		};
 	}
 }

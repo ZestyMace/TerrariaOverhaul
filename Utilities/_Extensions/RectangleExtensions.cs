@@ -94,15 +94,22 @@ public static class RectangleExtensions
 
 	// Etc
 
+	public static Vector2 GetCorner(this RectFloat rect, Vector2 point)
+	{
+		var topLeft = rect.TopLeft;
+		var bottomRight = rect.BottomRight;
+		return new Vector2(
+			MathHelper.Clamp(point.X, topLeft.X, bottomRight.X),
+			MathHelper.Clamp(point.Y, topLeft.Y, bottomRight.Y)
+		);
+	}
 	public static Vector2 GetCorner(this Rectangle rect, Vector2 point)
 	{
 		var topLeft = rect.TopLeft();
 		var bottomRight = rect.BottomRight();
-		var result = point;
-
-		result.X = MathHelper.Clamp(point.X, topLeft.X, bottomRight.X);
-		result.Y = MathHelper.Clamp(point.Y, topLeft.Y, bottomRight.Y);
-
-		return result;
+		return new Vector2(
+			MathHelper.Clamp(point.X, topLeft.X, bottomRight.X),
+			MathHelper.Clamp(point.Y, topLeft.Y, bottomRight.Y)
+		);
 	}
 }

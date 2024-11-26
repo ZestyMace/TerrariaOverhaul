@@ -1,8 +1,14 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using Microsoft.Xna.Framework.Audio;
 using Mono.Cecil.Cil;
 using MonoMod.Cil;
+using ReLogic.Reflection;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 using TerrariaOverhaul.Core.Configuration;
 using TerrariaOverhaul.Core.Time;
@@ -21,6 +27,17 @@ public sealed class MusicControlSystem : ModSystem
 	private const string VolumeVariable = "Volume";
 
 	public static readonly ConfigEntry<bool> EnableMusicPlaybackPositionPreservation = new(ConfigSide.ClientOnly, true, "Music");
+	public static readonly ConfigEntry<bool> AlwaysRestartBossMusicTracks = new(ConfigSide.ClientOnly, true, "Music");
+	public static readonly ConfigEntry<string[]> AlwaysRestartedMusicTracks = new(ConfigSide.ClientOnly, Array.Empty<string>(), "Music");
+
+	private static readonly IdDictionary musicLookup = IdDictionary.Create(typeof(MusicID), typeof(short));
+	private static readonly int[] bossTracks = [
+		MusicID.Boss1, MusicID.Boss2, MusicID.Boss3, MusicID.Boss4, MusicID.Boss5,
+		MusicID.Plantera, MusicID.QueenSlime, MusicID.EmpressOfLight, MusicID.LunarBoss,
+	];
+	private static bool[] isMusicTrackExcluded = Array.Empty<bool>();
+	private static SceneEffectPriority lastChosenMusicPriority; 
+	private static uint lastExcludedTracksVersion = uint.MaxValue;
 
 	public static event TrackUpdateCallback? OnTrackUpdate;
 
@@ -28,12 +45,50 @@ public sealed class MusicControlSystem : ModSystem
 	{
 		Main.QueueMainThreadAction(() => {
 			IL_Main.UpdateAudio += UpdateAudioInjection;
+			IL_Main.UpdateAudio_DecideOnNewMusic += DecideOnMusicInjection;
+			IL_Main.UpdateAudio_DecideOnTOWMusic += DecideOnMusicInjection;
 		});
 	}
+
+	public override void SetStaticDefaults() => UpdateConfigCache();
+	public override void PostUpdateEverything() => UpdateConfigCache();
 
 	public override void Unload()
 	{
 		OnTrackUpdate = null;
+	}
+
+	private static void UpdateConfigCache()
+	{
+		if (lastExcludedTracksVersion == AlwaysRestartedMusicTracks.Version) return;
+		lastExcludedTracksVersion = AlwaysRestartedMusicTracks.Version;
+
+		Array.Resize(ref isMusicTrackExcluded, MusicLoader.MusicCount);
+		Array.Fill(isMusicTrackExcluded, false);
+		foreach (string trackName in AlwaysRestartedMusicTracks.Value!) {
+			if (MusicLoader.GetMusicSlot(trackName) is >0 and int index || musicLookup.TryGetId(trackName, out index)) {
+				isMusicTrackExcluded[index] = true;
+			}
+		}
+
+		if (AlwaysRestartBossMusicTracks) {
+			foreach (int id in bossTracks) { isMusicTrackExcluded[id] = true; }
+		}
+	}
+
+	private static bool IsMusicTrackPausable(int index)
+		=> EnableMusicPlaybackPositionPreservation && !isMusicTrackExcluded[index] && (!AlwaysRestartBossMusicTracks || lastChosenMusicPriority < SceneEffectPriority.BossLow);
+
+	private static void DecideOnMusicInjection(ILContext context)
+	{
+		var il = new ILCursor(context);
+		int priorityIndex = context.Body.Variables.First(v => v.VariableType.Name == nameof(SceneEffectPriority)).Index;
+		
+		il.Index = context.Body.Instructions.Count - 1;
+		il.Emit(OpCodes.Ldloc, priorityIndex);
+		il.EmitDelegate(static (SceneEffectPriority priority) => {
+			lastChosenMusicPriority = priority;
+		});
 	}
 
 	private static void UpdateAudioInjection(ILContext context)
@@ -121,10 +176,10 @@ public sealed class MusicControlSystem : ModSystem
 
 		// Stop / pause playback
 		if (!shouldBePlaying && trackVolume <= 0f && trackFade <= 0f && audioTrack.IsPlaying) {
-			if (Main.musicVolume <= 0f || !EnableMusicPlaybackPositionPreservation) {
-				audioTrack.Stop(AudioStopOptions.Immediate);
-			} else {
+			if (Main.musicVolume > 0f && IsMusicTrackPausable(trackIndex)) {
 				audioTrack.Pause();
+			} else {
+				audioTrack.Stop(AudioStopOptions.Immediate);
 			}
 		}
 	}

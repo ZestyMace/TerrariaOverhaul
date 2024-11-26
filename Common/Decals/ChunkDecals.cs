@@ -121,8 +121,8 @@ public sealed class ChunkDecals : ChunkComponent
 
 		var destination = chunk.WorldRectangle;
 
-		destination.x -= Main.screenPosition.X;
-		destination.y -= Main.screenPosition.Y;
+		destination.X -= Main.screenPosition.X;
+		destination.Y -= Main.screenPosition.Y;
 
 		var shader = DecalSystem.BloodShader?.Value;
 		var lightingBuffer = lighting.Texture;
@@ -150,8 +150,8 @@ public sealed class ChunkDecals : ChunkComponent
 				//TODO: Comment the following.
 				var tOffset = Main.sceneTilePos - Main.screenPosition;
 				var vec = new Vector2(
-					chunk.WorldRectangle.width / Main.instance.tileTarget.Width / chunk.WorldRectangle.width,
-					chunk.WorldRectangle.height / Main.instance.tileTarget.Height / chunk.WorldRectangle.height
+					chunk.WorldRectangle.Width / Main.instance.tileTarget.Width / chunk.WorldRectangle.Width,
+					chunk.WorldRectangle.Height / Main.instance.tileTarget.Height / chunk.WorldRectangle.Height
 				);
 				var vertices = new[] {
 					new VertexPositionUv2(new Vector3(destination.Left, destination.Top, 0f), new Vector2(0f, 0f), (destination.TopLeft - tOffset) * vec),
