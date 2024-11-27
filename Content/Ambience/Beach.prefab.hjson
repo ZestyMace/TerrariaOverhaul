@@ -1,7 +1,7 @@
-BeachLoop: {
+BeachWaves: {
 	AmbienceTrack: {
 		Sound: {
-			SoundPath: "TerrariaOverhaul/Assets/Sounds/Ambience/Beach/BeachLoop"
+			SoundPath: "TerrariaOverhaul/Assets/Sounds/Ambience/Beach/BeachWaves"
 			Type: Ambient
 			Volume: 0.50
 			IsLooped: true
