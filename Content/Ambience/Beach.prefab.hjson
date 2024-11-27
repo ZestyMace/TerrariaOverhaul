@@ -3,14 +3,19 @@ BeachWaves: {
 		Sound: {
 			SoundPath: "TerrariaOverhaul/Assets/Sounds/Ambience/Beach/BeachWaves"
 			Type: Ambient
-			Volume: 0.50
+			Volume: 0.33
 			IsLooped: true
 		}
 
-		// Plays at the beach.
+		// Plays at the beach, but not when underwater.
 		Variables: {
+			NotUnderwater: {
+				Inputs: [ "Underwater" ]
+				Operation: Max
+				Modifiers: Inverse
+			}
 			Volume: {
-				Inputs: [ "Beach" ]
+				Inputs: [ "Beach", "SurfaceAltitude", "NotUnderwater" ]
 				Operation: Multiply
 			}
 		}
